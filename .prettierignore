@@ -1,0 +1,11 @@
+# Prettier also honors .gitignore by default, so build output (.output/, .wxt/,
+# coverage/, etc.) and node_modules/ are already skipped. Listed below are only
+# the tracked files Prettier should leave alone.
+
+# Machine-generated lockfile.
+pnpm-lock.yaml
+
+# Captured real-world lobste.rs HTML, kept byte-faithful so the unit/e2e tests
+# exercise the exact markup the extension sees in the wild. Reformatting these
+# would alter whitespace-sensitive text nodes the DOM transforms rely on.
+apps/extension/tests/fixtures/html/

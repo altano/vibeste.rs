@@ -1,4 +1,4 @@
-import { storage } from '#imports';
+import { storage } from "#imports";
 
 export interface Settings {
   /** Tag slugs to hide where they annotate a story, e.g. `"vibecoding"`. */
@@ -18,27 +18,27 @@ export interface Settings {
  * alternate spelling, and common misspelling must be listed explicitly.
  */
 export const DEFAULT_SETTINGS: Settings = {
-  hiddenTags: ['vibecoding'],
+  hiddenTags: ["vibecoding"],
   muteWords: [
     // "vibecoding" and its inflections
-    'vibecoding',
-    'vibecode',
-    'vibecodes',
-    'vibecoded',
-    'vibecoder',
-    'vibecoders',
+    "vibecoding",
+    "vibecode",
+    "vibecodes",
+    "vibecoded",
+    "vibecoder",
+    "vibecoders",
     // spaced / hyphenated spellings
-    'vibe coding',
-    'vibe code',
-    'vibe coded',
-    'vibe coder',
-    'vibe-coding',
-    'vibe-coded',
+    "vibe coding",
+    "vibe code",
+    "vibe coded",
+    "vibe coder",
+    "vibe-coding",
+    "vibe-coded",
     // common misspellings ("videcoding" is observed in the wild, e.g. /c/jm2ivd)
-    'videcoding',
-    'vibcoding',
-    'vibecoing',
-    'vibecodeing',
+    "videcoding",
+    "vibcoding",
+    "vibecoing",
+    "vibecodeing",
   ],
   muteWholeThread: true,
 };
@@ -47,7 +47,7 @@ export const DEFAULT_SETTINGS: Settings = {
  * A single `storage.sync` item keeps the three fields atomic and well within
  * the per-item sync quota. Settings never leave the browser's own sync.
  */
-export const settings = storage.defineItem<Settings>('sync:settings', {
+export const settings = storage.defineItem<Settings>("sync:settings", {
   fallback: DEFAULT_SETTINGS,
   version: 1,
 });
@@ -55,7 +55,7 @@ export const settings = storage.defineItem<Settings>('sync:settings', {
 /** Parse a textarea (one entry per line) into a trimmed, de-duplicated list. */
 export function parseList(text: string): string[] {
   const seen = new Set<string>();
-  for (const line of text.split('\n')) {
+  for (const line of text.split("\n")) {
     const value = line.trim();
     if (value) seen.add(value);
   }
@@ -64,5 +64,5 @@ export function parseList(text: string): string[] {
 
 /** Render a list back into textarea text (one entry per line). */
 export function formatList(list: string[]): string {
-  return list.join('\n');
+  return list.join("\n");
 }

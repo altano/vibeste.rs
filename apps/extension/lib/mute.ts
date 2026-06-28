@@ -28,9 +28,9 @@ export interface MuteOptions {
   muteWholeThread: boolean;
 }
 
-const PLACEHOLDER_CLASS = 'vibeste-muted';
+const PLACEHOLDER_CLASS = "vibeste-muted";
 /** Set on a target the user explicitly revealed, so re-runs leave it shown. */
-const REVEALED_ATTR = 'data-vibeste-revealed';
+const REVEALED_ATTR = "data-vibeste-revealed";
 
 /**
  * Replace matching comments with a clickable "muted" placeholder that restores
@@ -43,7 +43,7 @@ export function muteThreads(doc: Document, opts: MuteOptions): number {
 
   // Find every comment whose own text matches, up front and without mutating.
   const matching = new Set<HTMLElement>();
-  for (const comment of doc.querySelectorAll<HTMLElement>('div.comment')) {
+  for (const comment of doc.querySelectorAll<HTMLElement>("div.comment")) {
     if (regex.test(ownText(comment))) matching.add(comment);
   }
 
@@ -58,7 +58,7 @@ export function muteThreads(doc: Document, opts: MuteOptions): number {
   for (const comment of tops) {
     if (!comment.isConnected) continue;
 
-    const subtree = comment.closest<HTMLElement>('li.comments_subtree');
+    const subtree = comment.closest<HTMLElement>("li.comments_subtree");
     if (!subtree) continue;
 
     const target = opts.muteWholeThread ? subtree : comment;
@@ -73,7 +73,7 @@ export function muteThreads(doc: Document, opts: MuteOptions): number {
 
 /** A comment's own text. Replies live outside its `div.comment`, so are excluded. */
 function ownText(comment: HTMLElement): string {
-  return comment.querySelector('.comment_text')?.textContent ?? '';
+  return comment.querySelector(".comment_text")?.textContent ?? "";
 }
 
 /** True if a comment higher up the tree is also in `matching`. */
@@ -83,59 +83,59 @@ function hasMatchingAncestor(
 ): boolean {
   let li =
     comment
-      .closest<HTMLElement>('li.comments_subtree')
-      ?.parentElement?.closest<HTMLElement>('li.comments_subtree') ?? null;
+      .closest<HTMLElement>("li.comments_subtree")
+      ?.parentElement?.closest<HTMLElement>("li.comments_subtree") ?? null;
   while (li) {
-    const ancestor = li.querySelector<HTMLElement>(':scope > div.comment');
+    const ancestor = li.querySelector<HTMLElement>(":scope > div.comment");
     if (ancestor && matching.has(ancestor)) return true;
-    li = li.parentElement?.closest<HTMLElement>('li.comments_subtree') ?? null;
+    li = li.parentElement?.closest<HTMLElement>("li.comments_subtree") ?? null;
   }
   return false;
 }
 
 /** Hide a comment and its whole reply subtree behind one placeholder. */
 function muteSubtree(doc: Document, subtree: HTMLElement): void {
-  const count = subtree.querySelectorAll('div.comment').length;
+  const count = subtree.querySelectorAll("div.comment").length;
 
   const saved = doc.createDocumentFragment();
   while (subtree.firstChild) saved.append(subtree.firstChild);
 
   const placeholder = makePlaceholder(
     doc,
-    `muted conversation thread (${count} ${count === 1 ? 'comment' : 'comments'})`,
+    `muted conversation thread (${count} ${count === 1 ? "comment" : "comments"})`,
   );
   subtree.append(placeholder);
 
   onReveal(placeholder, () => {
-    subtree.setAttribute(REVEALED_ATTR, '');
+    subtree.setAttribute(REVEALED_ATTR, "");
     placeholder.replaceWith(saved); // re-inserts the saved children in place
   });
 }
 
 /** Hide only the matching comment, leaving its replies visible. */
 function muteComment(doc: Document, comment: HTMLElement): void {
-  const placeholder = makePlaceholder(doc, 'muted comment');
+  const placeholder = makePlaceholder(doc, "muted comment");
   comment.replaceWith(placeholder); // detach comment; placeholder takes its slot
 
   onReveal(placeholder, () => {
-    comment.setAttribute(REVEALED_ATTR, '');
+    comment.setAttribute(REVEALED_ATTR, "");
     placeholder.replaceWith(comment);
   });
 }
 
 function makePlaceholder(doc: Document, label: string): HTMLAnchorElement {
-  const link = doc.createElement('a');
+  const link = doc.createElement("a");
   link.className = PLACEHOLDER_CLASS;
-  link.href = '#';
-  link.setAttribute('role', 'button');
-  link.title = 'Click to show';
+  link.href = "#";
+  link.setAttribute("role", "button");
+  link.title = "Click to show";
   link.textContent = label;
-  link.dataset.vibeste = 'placeholder';
+  link.dataset.vibeste = "placeholder";
   return link;
 }
 
 function onReveal(link: HTMLAnchorElement, reveal: () => void): void {
-  link.addEventListener('click', (event) => {
+  link.addEventListener("click", (event) => {
     event.preventDefault();
     reveal();
   });
@@ -144,11 +144,11 @@ function onReveal(link: HTMLAnchorElement, reveal: () => void): void {
 function buildWordRegex(words: string[]): RegExp | null {
   const cleaned = [...new Set(words.map((w) => w.trim()).filter(Boolean))];
   if (cleaned.length === 0) return null;
-  const alternation = cleaned.map(escapeRegExp).join('|');
+  const alternation = cleaned.map(escapeRegExp).join("|");
   // Whole-word, case-insensitive (e.g. "ai" won't match inside "email").
-  return new RegExp(`\\b(?:${alternation})\\b`, 'i');
+  return new RegExp(`\\b(?:${alternation})\\b`, "i");
 }
 
 function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

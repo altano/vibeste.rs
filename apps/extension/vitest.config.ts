@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config';
-import { WxtVitest } from 'wxt/testing/vitest-plugin';
+import { defineConfig } from "vitest/config";
+import { WxtVitest } from "wxt/testing/vitest-plugin";
 
 // WxtVitest wires up WXT's aliases (`@/*`, `#imports`) and replaces the
 // `browser` global with an in-memory fake (`wxt/testing/fake-browser`) so
@@ -7,8 +7,8 @@ import { WxtVitest } from 'wxt/testing/vitest-plugin';
 export default defineConfig({
   plugins: [WxtVitest()],
   test: {
-    environment: 'jsdom',
-    include: ['tests/unit/**/*.test.ts'],
+    environment: "jsdom",
+    include: ["tests/unit/**/*.test.ts"],
     globals: true,
   },
 });

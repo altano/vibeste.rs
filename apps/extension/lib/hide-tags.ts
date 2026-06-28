@@ -12,8 +12,8 @@
  */
 export function buildHideTagsCss(tags: string[]): string {
   const selectors = hideTagSelectors(tags);
-  if (selectors.length === 0) return '';
-  return `${selectors.join(',\n')} {\n  display: none !important;\n}\n`;
+  if (selectors.length === 0) return "";
+  return `${selectors.join(",\n")} {\n  display: none !important;\n}\n`;
 }
 
 /**
@@ -40,7 +40,7 @@ function normalizeTags(tags: string[]): string[] {
 function cssEscapeClass(name: string): string {
   // Prefer the platform implementation (present in browsers and jsdom).
   const css = (globalThis as { CSS?: { escape?: (s: string) => string } }).CSS;
-  if (css && typeof css.escape === 'function') return css.escape(name);
+  if (css && typeof css.escape === "function") return css.escape(name);
   // Minimal fallback: backslash-escape anything outside a CSS identifier.
   return name.replace(/[^a-zA-Z0-9_-]/g, (ch) => `\\${ch}`);
 }

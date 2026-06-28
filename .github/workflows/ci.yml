@@ -24,8 +24,9 @@ jobs:
       # Runs `wxt prepare` via the postinstall hook.
       - run: pnpm install --frozen-lockfile
 
-      # Typecheck + unit tests (pure logic + DOM transforms against real fixtures).
+      # Typecheck, formatting, + unit tests (pure logic + DOM transforms against real fixtures).
       - run: pnpm check:types
+      - run: pnpm check:formatting
       - run: pnpm test:unit
 
       # Build all targets. `pnpm build` produces chrome + firefox; Safari builds

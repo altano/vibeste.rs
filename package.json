@@ -12,6 +12,8 @@
     "dev": "pnpm -C apps/extension dev",
     "dev:firefox": "pnpm -C apps/extension dev:firefox",
     "check:types": "pnpm -r run check:types",
+    "check:formatting": "prettier --check .",
+    "format": "prettier --write .",
     "test:unit": "pnpm -r run test:unit",
     "test:e2e": "pnpm -r run test:e2e",
     "build": "pnpm -r run build",
@@ -21,6 +23,11 @@
     "postinstall": "pnpm -r --if-present run postinstall"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^3.9.1"
   }
 }
