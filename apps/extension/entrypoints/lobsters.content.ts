@@ -1,5 +1,5 @@
 import { defineContentScript } from "#imports";
-import { settings, type Settings } from "@/lib/settings";
+import { settings } from "@/lib/settings";
 import { buildHideTagsCss } from "@/lib/hide-tags";
 import { muteThreads } from "@/lib/mute";
 
@@ -28,7 +28,7 @@ export default defineContentScript({
   // of the vibecoding tag).
   runAt: "document_start",
   async main(ctx) {
-    let current: Settings = await settings.getValue();
+    let current = await settings.getValue();
 
     // (a) Hide tags via an injected stylesheet — declarative, so it also covers
     // any tags added to the DOM later without re-running JavaScript.

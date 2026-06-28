@@ -4,6 +4,7 @@ import {
   type BrowserContext,
   type Page,
 } from "@playwright/test";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +12,26 @@ import { fileURLToPath } from "node:url";
 const EXTENSION_PATH = fileURLToPath(
   new URL("../../.output/chrome-mv3", import.meta.url),
 );
+
+/**
+ * Chromium derives an unpacked extension's ID deterministically from its
+ * absolute load path: sha256(path), take the first 16 bytes (32 hex nibbles),
+ * and map each nibble 0–f to a–p. This extension has no background worker, so
+ * there is no service worker to read the runtime ID from — deriving it lets us
+ * address internal pages like `optionsUrl` without one.
+ */
+export const EXTENSION_ID = ((): string => {
+  const hex = createHash("sha256")
+    .update(EXTENSION_PATH)
+    .digest("hex")
+    .slice(0, 32);
+  return [...hex]
+    .map((c) => String.fromCharCode(parseInt(c, 16) + "a".charCodeAt(0)))
+    .join("");
+})();
+
+/** Full URL of the extension's options page (entrypoints/options/index.html). */
+export const optionsUrl = `chrome-extension://${EXTENSION_ID}/options.html`;
 
 /** Read a captured HTML fixture from tests/fixtures/html/. */
 export const html = (name: string): string =>

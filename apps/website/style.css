@@ -18,15 +18,24 @@
   }
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font:
+    16px/1.65 system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
 }
 
 main {
@@ -35,9 +44,14 @@ main {
   padding: 3.5rem 1.25rem 5rem;
 }
 
-a { color: var(--accent); }
+a {
+  color: var(--accent);
+}
 
-header { text-align: center; margin-bottom: 2.5rem; }
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
 .logo {
   width: 72px;
@@ -53,7 +67,11 @@ h1 {
   letter-spacing: -0.02em;
 }
 
-.tagline { color: var(--muted); font-size: 1.15rem; margin: 0; }
+.tagline {
+  color: var(--muted);
+  font-size: 1.15rem;
+  margin: 0;
+}
 
 h2 {
   font-size: 1.3rem;
@@ -62,12 +80,20 @@ h2 {
   border-top: 1px solid var(--border);
 }
 
-section:first-of-type h2 { border-top: 0; padding-top: 0; }
+section:first-of-type h2 {
+  border-top: 0;
+  padding-top: 0;
+}
 
-ul { padding-left: 1.25rem; }
-li { margin: 0.35rem 0; }
+ul {
+  padding-left: 1.25rem;
+}
+li {
+  margin: 0.35rem 0;
+}
 
-code, kbd {
+code,
+kbd {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.9em;
   background: color-mix(in srgb, var(--accent) 12%, transparent);
@@ -82,17 +108,31 @@ pre {
   padding: 0.9rem 1rem;
   overflow-x: auto;
 }
-pre code { background: none; padding: 0; }
+pre code {
+  background: none;
+  padding: 0;
+}
 
-.cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1rem 1.1rem;
 }
-.card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
-.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
 
 .note {
   background: color-mix(in srgb, var(--accent) 8%, transparent);

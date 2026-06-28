@@ -17,12 +17,12 @@ user-facing overview and [`docs/`](docs/) for design notes.
 
 ## Repo layout
 
-| Path | What |
-| --- | --- |
-| `apps/extension` | The WebExtension (WXT, TypeScript) |
-| `apps/website` | Self-contained one-page site, deployed to GitHub Pages |
-| `docs` | Project docs — [design](docs/plan.md), [motivation](docs/frustrated-comments.md) |
-| `flake.nix` | Nix dev shell (Node, pnpm, web-ext, Playwright browsers) |
+| Path             | What                                                                             |
+| ---------------- | -------------------------------------------------------------------------------- |
+| `apps/extension` | The WebExtension (WXT, TypeScript)                                               |
+| `apps/website`   | Self-contained one-page site, deployed to GitHub Pages                           |
+| `docs`           | Project docs — [design](docs/plan.md), [motivation](docs/frustrated-comments.md) |
+| `flake.nix`      | Nix dev shell (Node, pnpm, web-ext, Playwright browsers)                         |
 
 ## Develop
 

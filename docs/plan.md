@@ -30,13 +30,13 @@ CI-tested targets).
 ## Verified DOM facts (captured as test fixtures)
 
 - **Story tag (annotates an article):** `<span class="tags"><a class="tag
-  tag_vibecoding" href="/t/vibecoding">`, inside `.story_liner`.
+tag_vibecoding" href="/t/vibecoding">`, inside `.story_liner`.
 - **Filters page tag:** wrapped in a table cell — `<td><a class="tag tag_ai">`.
   → `span.tags > a.tag_<slug>` matches article annotations but never `/filters`.
   A pure-CSS discriminator; no URL sniffing.
 - **Comment thread:** `<li class="comments_subtree">` containing an
   `<input class="comment_folder_button">`, a `<div class="comment"
-  data-shortid>` (body in `.comment_text`), then a sibling `<ol class="comments">`
+data-shortid>` (body in `.comment_text`), then a sibling `<ol class="comments">`
   of nested `li.comments_subtree`. Replies are siblings of the comment's
   `div.comment`, never descendants — so "mute subtree" vs "mute just this
   comment" is a clean structural split.
@@ -86,7 +86,7 @@ vibeste.rs/
   `document_start` to avoid a flash. Declarative, so dynamically-added tags are
   covered without re-running JS. Re-rendered on settings change.
 - **Muting** collects all matching `div.comment`s, then filters only the
-  *topmost* match in each ancestor chain: if a word appears in a comment **and**
+  _topmost_ match in each ancestor chain: if a word appears in a comment **and**
   one of its descendants, only the ancestor is filtered (no nested placeholders).
   Whole-thread mode detaches the enclosing `li.comments_subtree`'s contents into a
   closure and inserts a placeholder; comment-only mode replaces just the
@@ -138,4 +138,7 @@ xcrun safari-web-extension-converter apps/extension/.output/safari-mv2 \
 - Matching is whole-word, case-insensitive, configurable.
 - WXT defaults Firefox/Safari to MV2 (fine — no background worker); switching
   Firefox to MV3 later is a one-flag change.
+
+```
+
 ```
