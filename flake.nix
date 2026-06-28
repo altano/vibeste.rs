@@ -20,6 +20,7 @@
               pkgs.nodejs_22
               pkgs.corepack # provides pnpm pinned by package.json's packageManager field
               pkgs.web-ext # firefox: run / lint the extension
+              pkgs.librsvg # rsvg-convert: render icon.svg -> PNG icons (pnpm regen:icons)
             ]
             # Playwright's own browser download is broken under Nix, so pull the
             # browsers from nixpkgs instead. They build cleanly on Linux (CI/local);
