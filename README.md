@@ -39,8 +39,8 @@ Common tasks (run from the repo root):
 pnpm dev             # Chrome, with hot reload
 pnpm dev:firefox     # Firefox, with hot reload
 pnpm compile         # typecheck (wxt prepare && tsc --noEmit)
-pnpm test            # unit tests (Vitest)
-pnpm e2e             # Playwright e2e (build first)
+pnpm test:unit       # unit tests (Vitest)
+pnpm test:e2e        # Playwright e2e (build first)
 pnpm build           # build Chrome + Firefox
 pnpm build:safari    # build the Safari payload
 pnpm zip             # package store-ready zips
@@ -84,9 +84,9 @@ Settings use `storage.sync`, so they follow you across browsers and apply live.
 
 ## Tests
 
-- **Unit** (`pnpm test`) — pure logic and DOM transforms run against real
-  captured lobste.rs HTML (`apps/extension/e2e/html/`).
-- **E2E** (`pnpm e2e`) — loads the built Chromium extension and drives it against
+- **Unit** (`pnpm test:unit`) — pure logic and DOM transforms run against real
+  captured lobste.rs HTML (`apps/extension/tests/fixtures/html/`).
+- **E2E** (`pnpm test:e2e`) — loads the built Chromium extension and drives it against
   those fixtures served as `lobste.rs`, offline and deterministically.
 - **Firefox** is validated in CI with `web-ext lint`.
 

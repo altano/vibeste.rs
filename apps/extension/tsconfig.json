@@ -8,7 +8,7 @@
     ".wxt/**/*",
     "entrypoints/**/*",
     "lib/**/*",
-    "e2e/**/*",
+    "tests/**/*",
     "vite-env.d.ts",
     "wxt.config.ts",
     "vitest.config.ts",

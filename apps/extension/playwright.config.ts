@@ -4,7 +4,7 @@ import { defineConfig } from '@playwright/test';
 // e2e/fixtures.ts). Firefox is validated separately via `web-ext lint`; Safari
 // is build-only. Run `pnpm build` before `pnpm e2e`.
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './tests/e2e',
   testMatch: '**/*.spec.ts',
   // Extensions require a persistent context, which can't be shared across
   // parallel workers cleanly — keep it serial.

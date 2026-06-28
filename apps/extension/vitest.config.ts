@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [WxtVitest()],
   test: {
     environment: 'jsdom',
-    include: ['lib/**/*.test.ts'],
+    include: ['tests/unit/**/*.test.ts'],
     globals: true,
   },
 });

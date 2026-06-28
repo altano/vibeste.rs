@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { buildHideTagsCss, hideTagSelectors } from './hide-tags';
-import homeHtml from '../e2e/html/home.html?raw';
-import filtersHtml from '../e2e/html/filters.html?raw';
+import { buildHideTagsCss, hideTagSelectors } from '../../lib/hide-tags';
+import homeHtml from '../fixtures/html/home.html?raw';
+import filtersHtml from '../fixtures/html/filters.html?raw';
 
 describe('buildHideTagsCss', () => {
   it('returns an empty string when there is nothing to hide', () => {

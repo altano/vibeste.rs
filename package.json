@@ -11,12 +11,12 @@
   "scripts": {
     "dev": "pnpm -C apps/extension dev",
     "dev:firefox": "pnpm -C apps/extension dev:firefox",
-    "build": "pnpm -C apps/extension build && pnpm -C apps/extension build:firefox",
-    "build:safari": "pnpm -C apps/extension build:safari",
-    "zip": "pnpm -C apps/extension zip && pnpm -C apps/extension zip:firefox",
-    "compile": "pnpm -C apps/extension compile",
-    "test": "pnpm -C apps/extension test",
-    "e2e": "pnpm -C apps/extension e2e",
+    "compile": "pnpm -r run compile",
+    "test:unit": "pnpm -r run test:unit",
+    "test:e2e": "pnpm -r run test:e2e",
+    "build": "pnpm -r run build",
+    "build:safari": "pnpm -r run build:safari",
+    "zip": "pnpm -r run zip",
     "postinstall": "pnpm -r --if-present run postinstall"
   },
   "pnpm": {

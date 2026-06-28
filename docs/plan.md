@@ -41,8 +41,8 @@ CI-tested targets).
   `div.comment`, never descendants — so "mute subtree" vs "mute just this
   comment" is a clean structural split.
 
-Fixtures (`apps/extension/e2e/html/`): `home.html`, `filters.html` are real
-captured pages; `comments.html` mirrors the live comment markup.
+Fixtures (`apps/extension/tests/fixtures/html/`): `home.html`, `filters.html` are
+real captured pages; `comments.html` mirrors the live comment markup.
 
 ## Repo layout
 
@@ -60,11 +60,14 @@ vibeste.rs/
 │  │  ├─ entrypoints/
 │  │  │  ├─ lobsters.content.ts   thin wiring (matches lobste.rs/lobsters.dev)
 │  │  │  └─ options/index.html + main.ts
-│  │  ├─ lib/                 pure, unit-tested logic
+│  │  ├─ lib/                 pure logic
 │  │  │  ├─ settings.ts        storage.defineItem('sync:settings') + defaults + list helpers
 │  │  │  ├─ hide-tags.ts       buildHideTagsCss / hideTagSelectors
 │  │  │  └─ mute.ts            muteThreads(document, opts) + restore handlers
-│  │  ├─ e2e/                 Playwright specs + html/ fixtures
+│  │  ├─ tests/
+│  │  │  ├─ unit/              Vitest specs (de-colocated from lib/)
+│  │  │  ├─ e2e/               Playwright specs + fixtures.ts
+│  │  │  └─ fixtures/html/     captured lobste.rs HTML (shared by unit + e2e)
 │  │  ├─ public/icon/         16/32/48/128 png (rendered from assets/icon.svg)
 │  │  ├─ vitest.config.ts · playwright.config.ts · tsconfig.json
 │  └─ website/               # self-contained public site → GitHub Pages
@@ -101,7 +104,7 @@ vibeste.rs/
 
 ## Testing
 
-- **Unit (Vitest + WxtVitest + jsdom):** `lib/*` against captured fixtures
+- **Unit (Vitest + WxtVitest + jsdom):** `tests/unit/*` against captured fixtures
   (imported as `*.html?raw`). Covers tag-CSS generation, the home-vs-filters
   discriminator, whole-thread/comment-only muting, restore, word-boundary
   matching, idempotency, and the settings round-trip via `fakeBrowser`.

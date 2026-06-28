@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { fakeBrowser } from 'wxt/testing/fake-browser';
-import { settings, DEFAULT_SETTINGS, parseList, formatList } from './settings';
+import { settings, DEFAULT_SETTINGS, parseList, formatList } from '../../lib/settings';
 
 describe('parseList / formatList', () => {
   it('parses lines, trims, drops blanks and de-duplicates', () => {

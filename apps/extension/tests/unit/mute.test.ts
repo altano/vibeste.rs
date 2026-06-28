@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { muteThreads } from './mute';
-import { DEFAULT_SETTINGS } from './settings';
-import commentsHtml from '../e2e/html/comments.html?raw';
+import { muteThreads } from '../../lib/mute';
+import { DEFAULT_SETTINGS } from '../../lib/settings';
+import commentsHtml from '../fixtures/html/comments.html?raw';
 // Real captured thread: https://lobste.rs/c/jm2ivd (the "Oxide Rack 3D Explorer"
 // story). See the comment tree in the describe block below.
-import oxideThreadHtml from '../e2e/html/oxide-rack-thread.html?raw';
+import oxideThreadHtml from '../fixtures/html/oxide-rack-thread.html?raw';
 
 const doc = (): Document => new JSDOM(commentsHtml).window.document;
 const oxideDoc = (): Document => new JSDOM(oxideThreadHtml).window.document;

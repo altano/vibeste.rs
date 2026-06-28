@@ -8,11 +8,11 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 // The built, unpacked Chromium MV3 extension. Run `pnpm build` first.
-const EXTENSION_PATH = fileURLToPath(new URL('../.output/chrome-mv3', import.meta.url));
+const EXTENSION_PATH = fileURLToPath(new URL('../../.output/chrome-mv3', import.meta.url));
 
-/** Read a captured HTML fixture from e2e/html/. */
+/** Read a captured HTML fixture from tests/fixtures/html/. */
 export const html = (name: string): string =>
-  readFileSync(fileURLToPath(new URL(`./html/${name}`, import.meta.url)), 'utf8');
+  readFileSync(fileURLToPath(new URL(`../fixtures/html/${name}`, import.meta.url)), 'utf8');
 
 /**
  * Serve `body` for the page's top-level navigation and block every sub-resource,

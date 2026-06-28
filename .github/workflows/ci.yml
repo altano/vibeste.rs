@@ -24,26 +24,25 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       # Typecheck + unit tests (pure logic + DOM transforms against real fixtures).
-      - run: pnpm -C apps/extension compile
-      - run: pnpm -C apps/extension test
+      - run: pnpm compile
+      - run: pnpm test:unit
 
-      # Build every target. Safari builds the payload here as a compile smoke
-      # check; the Xcode conversion/signing is a documented manual step (macOS).
-      - run: pnpm -C apps/extension build
-      - run: pnpm -C apps/extension build:firefox
-      - run: pnpm -C apps/extension build:safari
+      # Build all targets. `pnpm build` produces chrome + firefox; Safari builds
+      # the payload here as a compile smoke check (Xcode conversion/signing is a
+      # documented manual step on macOS).
+      - run: pnpm build
+      - run: pnpm build:safari
 
       # Static validation of the Firefox build.
       - run: pnpm dlx web-ext lint --source-dir apps/extension/.output/firefox-mv2 --no-config-discovery
 
       # Distributable zips (Chrome store zip + Firefox zip & sources zip).
-      - run: pnpm -C apps/extension zip
-      - run: pnpm -C apps/extension zip:firefox
+      - run: pnpm zip
 
       # E2E: load the built Chromium extension and drive it against the captured
       # fixtures. Headed under xvfb so the extension actually loads.
       - run: pnpm -C apps/extension exec playwright install --with-deps chromium
-      - run: xvfb-run -a pnpm -C apps/extension e2e
+      - run: xvfb-run -a pnpm test:e2e
 
       - uses: actions/upload-artifact@v4
         if: always()
