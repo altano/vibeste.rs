@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Source icon for vibeste.rs. Rendered to public/icon/{16,32,48,128}.png. -->
+  <rect width="128" height="128" rx="28" fill="#a01b0b"/>
+  <!-- A muted speech bubble: hides the chatter. -->
+  <rect x="20" y="30" width="88" height="56" rx="13" fill="#ffffff"/>
+  <path d="M41 86 L41 104 L62 86 Z" fill="#ffffff"/>
+  <!-- The "mute" dash. -->
+  <rect x="38" y="52" width="52" height="12" rx="6" fill="#a01b0b"/>
+</svg>

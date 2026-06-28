@@ -1,0 +1,74 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      # Runs `wxt prepare` via the postinstall hook.
+      - run: pnpm install --frozen-lockfile
+
+      # Typecheck + unit tests (pure logic + DOM transforms against real fixtures).
+      - run: pnpm -C apps/extension compile
+      - run: pnpm -C apps/extension test
+
+      # Build every target. Safari builds the payload here as a compile smoke
+      # check; the Xcode conversion/signing is a documented manual step (macOS).
+      - run: pnpm -C apps/extension build
+      - run: pnpm -C apps/extension build:firefox
+      - run: pnpm -C apps/extension build:safari
+
+      # Static validation of the Firefox build.
+      - run: pnpm dlx web-ext lint --source-dir apps/extension/.output/firefox-mv2 --no-config-discovery
+
+      # Distributable zips (Chrome store zip + Firefox zip & sources zip).
+      - run: pnpm -C apps/extension zip
+      - run: pnpm -C apps/extension zip:firefox
+
+      # E2E: load the built Chromium extension and drive it against the captured
+      # fixtures. Headed under xvfb so the extension actually loads.
+      - run: pnpm -C apps/extension exec playwright install --with-deps chromium
+      - run: xvfb-run -a pnpm -C apps/extension e2e
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: extension-builds
+          path: apps/extension/.output/*.zip
+          if-no-files-found: warn
+
+  deploy-website:
+    # Self-contained static site (apps/website) → GitHub Pages, on main only.
+    # Pages' Actions deployment can publish any subfolder — no top-level docs/ needed.
+    needs: build-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/website
+      - id: deployment
+        uses: actions/deploy-pages@v4

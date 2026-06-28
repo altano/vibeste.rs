@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# wxt build output & generated types
+.output/
+.wxt/
+**/.wxt/
+stats.html
+web-ext.config.ts
+
+# test / playwright
+playwright-report/
+test-results/
+coverage/
+
+# nix / direnv
+result
+result-*
+.direnv/
+
+# editors / os
+.DS_Store
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json

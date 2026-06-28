@@ -1,0 +1,25 @@
+{
+  "name": "vibeste-rs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Browser extension that hides vibecoding tags and mutes vibecoding comment threads on lobste.rs",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm -C apps/extension dev",
+    "dev:firefox": "pnpm -C apps/extension dev:firefox",
+    "build": "pnpm -C apps/extension build && pnpm -C apps/extension build:firefox",
+    "build:safari": "pnpm -C apps/extension build:safari",
+    "zip": "pnpm -C apps/extension zip && pnpm -C apps/extension zip:firefox",
+    "compile": "pnpm -C apps/extension compile",
+    "test": "pnpm -C apps/extension test",
+    "e2e": "pnpm -C apps/extension e2e",
+    "postinstall": "pnpm -r --if-present run postinstall"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

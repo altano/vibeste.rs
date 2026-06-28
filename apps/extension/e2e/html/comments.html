@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A story — Lobsters</title>
+  </head>
+  <body>
+    <!-- Structure mirrors live lobste.rs comment markup. -->
+    <ol class="comments comments1" id="comments">
+      <li class="comments_subtree" id="comments-story1">
+        <ol class="comments" id="story_comments">
+          <!-- A: matches "vibecoding", has a reply (B). -->
+          <li class="comments_subtree">
+            <input id="comment_folder_aaa" class="comment_folder_button" type="checkbox" />
+            <div id="c_aaa" data-shortid="aaa" class="comment">
+              <div class="voters"><a class="upvoter" href="/login">5</a></div>
+              <div class="details">
+                <div class="byline"><a href="/~alice">alice</a></div>
+                <div class="comment_text">
+                  <p>I tried some vibecoding on this and it was a mess.</p>
+                </div>
+              </div>
+            </div>
+            <ol class="comments">
+              <li class="comments_subtree">
+                <input id="comment_folder_bbb" class="comment_folder_button" type="checkbox" />
+                <div id="c_bbb" data-shortid="bbb" class="comment">
+                  <div class="voters"><a class="upvoter" href="/login">2</a></div>
+                  <div class="details">
+                    <div class="byline"><a href="/~bob">bob</a></div>
+                    <div class="comment_text"><p>Agreed, replies should be hidden too.</p></div>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </li>
+
+          <!-- C: clean parent; its reply (D) matches (different casing). -->
+          <li class="comments_subtree">
+            <input id="comment_folder_ccc" class="comment_folder_button" type="checkbox" />
+            <div id="c_ccc" data-shortid="ccc" class="comment">
+              <div class="voters"><a class="upvoter" href="/login">9</a></div>
+              <div class="details">
+                <div class="byline"><a href="/~carol">carol</a></div>
+                <div class="comment_text"><p>Great write-up about distributed systems.</p></div>
+              </div>
+            </div>
+            <ol class="comments">
+              <li class="comments_subtree">
+                <input id="comment_folder_ddd" class="comment_folder_button" type="checkbox" />
+                <div id="c_ddd" data-shortid="ddd" class="comment">
+                  <div class="voters"><a class="upvoter" href="/login">1</a></div>
+                  <div class="details">
+                    <div class="byline"><a href="/~dave">dave</a></div>
+                    <div class="comment_text"><p>This reads like VibeCoding to me.</p></div>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </li>
+
+          <!-- E: no match; "email" must not match the word "ai". -->
+          <li class="comments_subtree">
+            <input id="comment_folder_eee" class="comment_folder_button" type="checkbox" />
+            <div id="c_eee" data-shortid="eee" class="comment">
+              <div class="voters"><a class="upvoter" href="/login">3</a></div>
+              <div class="details">
+                <div class="byline"><a href="/~erin">erin</a></div>
+                <div class="comment_text"><p>Please email me about email, not emails.</p></div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </body>
+</html>

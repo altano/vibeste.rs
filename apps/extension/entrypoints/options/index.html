@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Open the options page in a full tab rather than a cramped popup panel. -->
+    <meta name="manifest.open_in_tab" content="true" />
+    <title>vibeste.rs settings</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+      }
+      body {
+        max-width: 38rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.25rem;
+      }
+      p.sub {
+        margin-top: 0;
+        color: #888;
+      }
+      fieldset {
+        border: 1px solid #8884;
+        border-radius: 8px;
+        margin: 0 0 1.25rem;
+        padding: 1rem;
+      }
+      legend {
+        font-weight: 600;
+        padding: 0 0.4rem;
+      }
+      label.field {
+        display: block;
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 0.4rem;
+      }
+      textarea {
+        width: 100%;
+        min-height: 5rem;
+        box-sizing: border-box;
+        font: inherit;
+        font-family: ui-monospace, monospace;
+        padding: 0.5rem;
+        border-radius: 6px;
+        border: 1px solid #8886;
+        background: transparent;
+        color: inherit;
+        resize: vertical;
+      }
+      .toggle {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+      .toggle small {
+        display: block;
+        color: #888;
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      button {
+        font: inherit;
+        padding: 0.4rem 0.9rem;
+        border-radius: 6px;
+        border: 1px solid #8886;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+      }
+      #status {
+        color: #2a8;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      #status.visible {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>vibeste.rs</h1>
+    <p class="sub">Settings sync across your browsers. Changes apply immediately.</p>
+
+    <form id="settings">
+      <fieldset>
+        <legend>Hidden tags</legend>
+        <label class="field" for="hiddenTags">
+          One tag slug per line. Hidden where they annotate a story; the Filtered
+          Tags page is never touched.
+        </label>
+        <textarea id="hiddenTags" spellcheck="false" autocapitalize="off"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Muted words</legend>
+        <label class="field" for="muteWords">
+          One word or phrase per line. A comment containing any of these
+          (whole-word, case-insensitive) is replaced with a "muted" link.
+        </label>
+        <textarea id="muteWords" spellcheck="false" autocapitalize="off"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Mute scope</legend>
+        <div class="toggle">
+          <input type="checkbox" id="muteWholeThread" />
+          <label for="muteWholeThread">
+            Mute the whole conversation thread
+            <small>When off, only the matching comment is muted; its replies stay visible.</small>
+          </label>
+        </div>
+      </fieldset>
+
+      <footer>
+        <button type="button" id="reset">Reset to defaults</button>
+        <span id="status" role="status">Saved</span>
+      </footer>
+    </form>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

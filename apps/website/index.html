@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>vibeste.rs — a quieter lobste.rs</title>
+    <meta
+      name="description"
+      content="A small, open-source browser extension that hides the vibecoding tag and mutes vibecoding comment threads on lobste.rs."
+    />
+    <link rel="icon" href="./icon-48.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img class="logo" src="./icon-128.png" alt="" />
+        <h1>vibeste.rs</h1>
+        <p class="tagline">A quieter lobste.rs. Hide the vibe, mute the threads.</p>
+      </header>
+
+      <section>
+        <h2>What it does</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Hides the tag</h3>
+            <p>
+              The <code>vibecoding</code> tag is hidden wherever it annotates a
+              story — home, story, and tag pages. Your Filtered Tags settings
+              page is never touched.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Mutes the threads</h3>
+            <p>
+              Any comment mentioning <code>vibecoding</code> is collapsed into a
+              <em>“muted conversation thread”</em> link. Click it to read the
+              thread anyway.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Your rules</h3>
+            <p>
+              Choose which tags to hide, which words to mute, and whether to mute
+              a whole reply tree or just the matching comment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Install</h2>
+        <p>
+          The extension works on Chrome, Firefox, and Safari from a single code
+          base. While store listings are pending, you can build and load it
+          yourself:
+        </p>
+        <pre><code>git clone https://github.com/norbauer/vibeste.rs
+cd vibeste.rs
+nix develop            # or: corepack enable pnpm
+pnpm install
+pnpm build             # Chrome → apps/extension/.output/chrome-mv3
+pnpm build:firefox     # Firefox → apps/extension/.output/firefox-mv2</code></pre>
+        <ul>
+          <li>
+            <strong>Chrome / Edge:</strong> open <code>chrome://extensions</code>,
+            enable Developer mode, and “Load unpacked” the
+            <code>chrome-mv3</code> folder.
+          </li>
+          <li>
+            <strong>Firefox:</strong> open <code>about:debugging</code> → This
+            Firefox → “Load Temporary Add-on”, and pick any file in
+            <code>firefox-mv2</code>. (Or run <code>pnpm dev:firefox</code>.)
+          </li>
+          <li>
+            <strong>Safari:</strong> build with <code>pnpm build:safari</code>,
+            then wrap it with Apple’s
+            <code>xcrun safari-web-extension-converter</code> — see the README.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Settings</h2>
+        <p>Open the extension’s options page to change:</p>
+        <ul>
+          <li><strong>Hidden tags</strong> — one tag slug per line (default <code>vibecoding</code>).</li>
+          <li><strong>Muted words</strong> — one word or phrase per line, matched whole-word and case-insensitively.</li>
+          <li><strong>Mute scope</strong> — the whole thread (default) or only the matching comment.</li>
+        </ul>
+        <p>Settings sync across your browsers and apply immediately, no reload needed.</p>
+      </section>
+
+      <section>
+        <h2>Privacy</h2>
+        <div class="note">
+          <strong>No tracking. No network. No nonsense.</strong> The only
+          permission requested is <code>storage</code> (for your settings), and
+          the code only ever runs on <code>lobste.rs</code> and
+          <code>lobsters.dev</code>. There is no telemetry, no analytics, and
+          nothing leaves your browser.
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          Free and open source under the MIT license ·
+          <a href="https://github.com/norbauer/vibeste.rs">Source code</a> ·
+          <a href="https://github.com/norbauer/vibeste.rs/tree/main/docs">Design notes</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

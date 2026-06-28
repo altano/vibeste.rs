@@ -1,0 +1,31 @@
+{
+  "name": "vibeste-rs-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hide vibecoding tags and mute vibecoding comment threads on lobste.rs / lobsters.dev",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "build:safari": "wxt build -b safari",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "wxt prepare && tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "postinstall": "wxt prepare"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/jsdom": "^28.0.0",
+    "@types/node": "^22.10.0",
+    "jsdom": "^29.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.9",
+    "wxt": "^0.20.27"
+  }
+}

@@ -1,0 +1,4 @@
+# The docs site (top-level docs/) is plain static HTML + markdown and is not an
+# npm package, so the only workspace package is the extension.
+packages:
+  - apps/*
