@@ -21,18 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
 
-      # pnpm's content-addressable store (replaces setup-node's built-in cache).
-      - uses: actions/cache@v4
-        with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: pnpm-${{ runner.os }}-
-
       # Runs `wxt prepare` via the postinstall hook.
       - run: pnpm install --frozen-lockfile
 
       # Typecheck + unit tests (pure logic + DOM transforms against real fixtures).
-      - run: pnpm compile
+      - run: pnpm check:types
       - run: pnpm test:unit
 
       # Build all targets. `pnpm build` produces chrome + firefox; Safari builds

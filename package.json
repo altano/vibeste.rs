@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "pnpm -C apps/extension dev",
     "dev:firefox": "pnpm -C apps/extension dev:firefox",
-    "compile": "pnpm -r run compile",
+    "check:types": "pnpm -r run check:types",
     "test:unit": "pnpm -r run test:unit",
     "test:e2e": "pnpm -r run test:e2e",
     "build": "pnpm -r run build",

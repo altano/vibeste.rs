@@ -38,7 +38,7 @@ Common tasks (run from the repo root):
 ```sh
 pnpm dev             # Chrome, with hot reload
 pnpm dev:firefox     # Firefox, with hot reload
-pnpm compile         # typecheck (wxt prepare && tsc --noEmit)
+pnpm check:types     # typecheck (wxt prepare && tsc --noEmit)
 pnpm test:unit       # unit tests (Vitest)
 pnpm test:e2e        # Playwright e2e (build first)
 pnpm build           # build Chrome + Firefox
