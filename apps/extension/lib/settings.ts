@@ -12,10 +12,34 @@ export interface Settings {
   muteWholeThread: boolean;
 }
 
-/** Ships working out of the box: hides + mutes `vibecoding`, whole-thread. */
+/**
+ * Ships working out of the box: hides the `vibecoding` tag and mutes the word
+ * and its variants, whole-thread. Matching is whole-word, so each inflection,
+ * alternate spelling, and common misspelling must be listed explicitly.
+ */
 export const DEFAULT_SETTINGS: Settings = {
   hiddenTags: ['vibecoding'],
-  muteWords: ['vibecoding'],
+  muteWords: [
+    // "vibecoding" and its inflections
+    'vibecoding',
+    'vibecode',
+    'vibecodes',
+    'vibecoded',
+    'vibecoder',
+    'vibecoders',
+    // spaced / hyphenated spellings
+    'vibe coding',
+    'vibe code',
+    'vibe coded',
+    'vibe coder',
+    'vibe-coding',
+    'vibe-coded',
+    // common misspellings ("videcoding" is observed in the wild, e.g. /c/jm2ivd)
+    'videcoding',
+    'vibcoding',
+    'vibecoing',
+    'vibecodeing',
+  ],
   muteWholeThread: true,
 };
 

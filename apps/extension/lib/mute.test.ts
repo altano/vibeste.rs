@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
 import { muteThreads } from './mute';
+import { DEFAULT_SETTINGS } from './settings';
 import commentsHtml from '../e2e/html/comments.html?raw';
 // Real captured thread: https://lobste.rs/c/jm2ivd (the "Oxide Rack 3D Explorer"
 // story). See the comment tree in the describe block below.
@@ -88,6 +89,37 @@ describe('muteThreads — matching rules', () => {
     expect(muteThreads(d, opts)).toBe(0); // nothing left to mute
     expect(d.querySelectorAll('.vibeste-muted').length).toBe(2);
   });
+});
+
+describe('default mute words cover variants & misspellings', () => {
+  // Wrap a snippet of comment text in minimal lobste.rs comment markup.
+  const commentWith = (text: string): string =>
+    `<ol class="comments"><li class="comments_subtree">` +
+    `<div class="comment" data-shortid="x"><div class="comment_text"><p>${text}</p></div></div>` +
+    `</li></ol>`;
+  const matchesDefault = (text: string): boolean =>
+    muteThreads(new JSDOM(commentWith(text)).window.document, {
+      muteWords: DEFAULT_SETTINGS.muteWords,
+      muteWholeThread: false,
+    }) > 0;
+
+  it.each([
+    'This whole thing is vibecoding',
+    'I VibeCoded this in an afternoon', // case-insensitive inflection
+    'pure vibecode, no thought',
+    'speaking as a vibecoder',
+    'just some vibe coding', // two-word spelling
+    'a vibe-coded prototype', // hyphenated
+    'how long until tagged as videcoding', // observed misspelling (/c/jm2ivd)
+    'lots of vibcoding in here', // misspelling
+  ])('mutes %j', (text) => expect(matchesDefault(text)).toBe(true));
+
+  it.each([
+    'I love coding',
+    'video coding standards like H.264', // must not match "videcoding"
+    'just a vibe check',
+    'this is about encoding',
+  ])('leaves %j alone', (text) => expect(matchesDefault(text)).toBe(false));
 });
 
 // A real lobste.rs thread, captured from https://lobste.rs/c/jm2ivd. Tree:

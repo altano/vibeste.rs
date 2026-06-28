@@ -92,8 +92,10 @@ vibeste.rs/
   `data-vibeste-revealed` marker stops re-runs from re-hiding a thread the user
   opened. Idempotent.
 - **Settings:** one `storage.sync` item `{ hiddenTags, muteWords, muteWholeThread }`,
-  defaulting to `vibecoding` / `vibecoding` / whole-thread so it works on install.
-  Firefox needs `gecko.id` for `storage.sync` to persist — handled in config.
+  defaulting to the `vibecoding` tag, a list of `vibecoding` inflections / alternate
+  spellings / common misspellings for muting (whole-word matching needs each listed
+  explicitly), and whole-thread, so it works on install. Firefox needs `gecko.id`
+  for `storage.sync` to persist — handled in config.
 - **Permissions:** `storage` only. No `host_permissions` (content-script
   `matches` suffice), no tabs, no background worker, no network.
 
