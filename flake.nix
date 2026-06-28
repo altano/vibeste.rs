@@ -26,6 +26,7 @@
             # on macOS, develop e2e against system browsers / CI.
             ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
               pkgs.playwright-driver.browsers
+              pkgs.xvfb-run # virtual display for the headed e2e Chromium (CI)
             ];
 
           shellHook = ''

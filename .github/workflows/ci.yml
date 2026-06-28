@@ -11,14 +11,22 @@ permissions:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Every step runs inside the flake dev shell, so all tooling (Node, pnpm
+        # via corepack, web-ext, Playwright browsers, xvfb) is pinned by the flake
+        # — no `pnpm dlx` or ad-hoc tool fetches in CI.
+        shell: nix develop --command bash -eo pipefail {0}
     steps:
       - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
 
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      # pnpm's content-addressable store (replaces setup-node's built-in cache).
+      - uses: actions/cache@v4
         with:
-          node-version: 22
-          cache: pnpm
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-${{ runner.os }}-
 
       # Runs `wxt prepare` via the postinstall hook.
       - run: pnpm install --frozen-lockfile
@@ -33,15 +41,15 @@ jobs:
       - run: pnpm build
       - run: pnpm build:safari
 
-      # Static validation of the Firefox build.
-      - run: pnpm dlx web-ext lint --source-dir apps/extension/.output/firefox-mv2 --no-config-discovery
+      # Static validation of the Firefox build (web-ext is provided by the flake).
+      - run: web-ext lint --source-dir apps/extension/.output/firefox-mv2 --no-config-discovery
 
       # Distributable zips (Chrome store zip + Firefox zip & sources zip).
       - run: pnpm zip
 
       # E2E: load the built Chromium extension and drive it against the captured
-      # fixtures. Headed under xvfb so the extension actually loads.
-      - run: pnpm -C apps/extension exec playwright install --with-deps chromium
+      # fixtures. Browsers come from the flake (PLAYWRIGHT_BROWSERS_PATH); run
+      # headed under xvfb so the extension actually loads.
       - run: xvfb-run -a pnpm test:e2e
 
       - uses: actions/upload-artifact@v4
