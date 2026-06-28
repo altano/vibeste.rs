@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { JSDOM } from "jsdom";
-import { buildHideTagsCss, hideTagSelectors } from "../../lib/hide-tags";
+import {
+  buildHideTagsCss,
+  hideTagSelectors,
+  tagPageSlugs,
+  tagsToHideOn,
+} from "../../lib/hide-tags";
 import homeHtml from "../fixtures/html/home.html?raw";
 import filtersHtml from "../fixtures/html/filters.html?raw";
 
@@ -28,6 +33,43 @@ describe("buildHideTagsCss", () => {
       '<span class="tags"><a class="tag tag_c++"></a></span>',
     ).window;
     expect(document.querySelectorAll(selector!).length).toBe(1);
+  });
+});
+
+describe("tagPageSlugs", () => {
+  it("reads the slug from a tag page path", () => {
+    expect(tagPageSlugs("/t/vibecoding")).toEqual(["vibecoding"]);
+  });
+
+  it("reads every slug from a multi-tag page path", () => {
+    expect(tagPageSlugs("/t/vibecoding,ai")).toEqual(["vibecoding", "ai"]);
+  });
+
+  it("ignores pagination and other trailing path segments", () => {
+    expect(tagPageSlugs("/t/vibecoding/page/2")).toEqual(["vibecoding"]);
+  });
+
+  it("returns nothing for non-tag pages", () => {
+    expect(tagPageSlugs("/")).toEqual([]);
+    expect(tagPageSlugs("/s/abc123/some_story")).toEqual([]);
+    expect(tagPageSlugs("/filters")).toEqual([]);
+    expect(tagPageSlugs("/tags")).toEqual([]);
+  });
+});
+
+describe("tagsToHideOn", () => {
+  it("hides the tag everywhere except its own tag page", () => {
+    expect(tagsToHideOn("/", ["vibecoding"])).toEqual(["vibecoding"]);
+    expect(tagsToHideOn("/t/security", ["vibecoding"])).toEqual(["vibecoding"]);
+    expect(tagsToHideOn("/t/vibecoding", ["vibecoding"])).toEqual([]);
+  });
+
+  it("leaves a tag visible on a multi-tag page that includes it", () => {
+    expect(tagsToHideOn("/t/vibecoding,rust", ["vibecoding"])).toEqual([]);
+  });
+
+  it("only un-hides the tags the current page is scoped to", () => {
+    expect(tagsToHideOn("/t/vibecoding", ["vibecoding", "ai"])).toEqual(["ai"]);
   });
 });
 

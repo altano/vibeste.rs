@@ -20,6 +20,20 @@ test("hides the vibecoding tag where it annotates a story", async ({
   ).toBeVisible();
 });
 
+test("leaves the vibecoding tag visible on its own tag page", async ({
+  context,
+}) => {
+  const page = await context.newPage();
+  // Same story markup as the home page; only the URL differs. The tag is hidden
+  // on `/` but should stay visible when browsing `/t/vibecoding` directly.
+  await serve(page, html("home.html"));
+  await page.goto("https://lobste.rs/t/vibecoding");
+
+  await expect(
+    page.locator("span.tags > a.tag_vibecoding").first(),
+  ).toBeVisible();
+});
+
 test("does not touch the vibecoding tag in the Filtered Tags UI", async ({
   context,
 }) => {

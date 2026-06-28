@@ -26,6 +26,33 @@ export function hideTagSelectors(tags: string[]): string[] {
   );
 }
 
+/**
+ * The configured tags to hide on the page at `pathname` — every hidden tag,
+ * minus any the current tag page is scoped to.
+ *
+ * Opening `/t/vibecoding` is an explicit request to browse that tag, so leaving
+ * its annotation visible *there* is more useful than hiding it. It stays hidden
+ * everywhere else (home, story pages, and other tag pages). This is the one
+ * place the feature needs to know the URL — the hiding itself is still pure CSS.
+ */
+export function tagsToHideOn(pathname: string, hiddenTags: string[]): string[] {
+  const shown = new Set(tagPageSlugs(pathname));
+  return normalizeTags(hiddenTags).filter((slug) => !shown.has(slug));
+}
+
+/**
+ * The tag slugs a lobste.rs tag page is scoped to, parsed from its path.
+ *
+ * Tag pages live at `/t/<slug>`, with multi-tag views at `/t/<slug>,<slug>` and
+ * pagination at `/t/<slug>/page/2`. Returns the lower-cased slugs for any such
+ * path, or an empty array for every other page.
+ */
+export function tagPageSlugs(pathname: string): string[] {
+  const segment = /^\/t\/([^/]+)/.exec(pathname)?.[1];
+  if (!segment) return [];
+  return normalizeTags(segment.split(","));
+}
+
 /** Lower-case, trim, and de-duplicate tag slugs (lobsters slugs are lowercase). */
 function normalizeTags(tags: string[]): string[] {
   const seen = new Set<string>();

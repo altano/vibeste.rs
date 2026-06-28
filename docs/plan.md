@@ -11,8 +11,10 @@ WebExtension that customizes the lobste.rs UI for people who want less
 AI/"vibecoding" content (see [`frustrated-comments.md`](./frustrated-comments.md)
 for the community frustration that prompted it):
 
-1. **Hide the `vibecoding` tag** where it annotates a story (home, story, and tag
-   pages) — but **not** in the Filtered Tags management UI at `/filters`.
+1. **Hide the `vibecoding` tag** where it annotates a story (home, story, and
+   other tag pages) — but **not** in the Filtered Tags management UI at
+   `/filters`, and **not** on the tag's own page at `/t/vibecoding`, where the
+   user has explicitly navigated to browse that tag.
 2. **Mute comment threads** whose text contains configured words (default
    `vibecoding`): replace the comment (and, by default, its whole reply subtree)
    with a "muted conversation thread" link that restores on click.
@@ -33,7 +35,11 @@ CI-tested targets).
 tag_vibecoding" href="/t/vibecoding">`, inside `.story_liner`.
 - **Filters page tag:** wrapped in a table cell — `<td><a class="tag tag_ai">`.
   → `span.tags > a.tag_<slug>` matches article annotations but never `/filters`.
-  A pure-CSS discriminator; no URL sniffing.
+  A pure-CSS discriminator for the filters page; no URL sniffing there.
+- **Tag page exception:** a tag's own page (`/t/<slug>`, incl. multi-tag
+  `/t/a,b` and `/page/N`) leaves that slug visible. This is the one URL-aware
+  bit — `tagsToHideOn(location.pathname, …)` drops the page's own slugs from the
+  hide list; the hiding itself stays pure CSS.
 - **Comment thread:** `<li class="comments_subtree">` containing an
   `<input class="comment_folder_button">`, a `<div class="comment"
 data-shortid>` (body in `.comment_text`), then a sibling `<ol class="comments">`
@@ -110,8 +116,9 @@ vibeste.rs/
   matching, idempotency, and the settings round-trip via `fakeBrowser`.
 - **E2E (Playwright, Chromium):** loads the built MV3 extension into a persistent
   context and serves the captured fixtures for `lobste.rs` URLs (offline,
-  deterministic). Asserts the tag is hidden on home, visible on `/filters`, and a
-  vibecoding thread becomes a placeholder that restores on click.
+  deterministic). Asserts the tag is hidden on home, visible on `/filters` and on
+  `/t/vibecoding`, and a vibecoding thread becomes a placeholder that restores on
+  click.
 - **Firefox:** `web-ext lint` on the built add-on (CI). **Safari:** `build:safari`
   compiles the payload in CI; Xcode conversion/signing is manual.
 

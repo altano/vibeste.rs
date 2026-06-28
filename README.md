@@ -4,7 +4,8 @@ A small, open-source browser extension that makes [lobste.rs](https://lobste.rs)
 quieter:
 
 - **Hides the `vibecoding` tag** where it annotates a story — but leaves it alone
-  in your Filtered Tags settings at `/filters`.
+  in your Filtered Tags settings at `/filters`, and on the tag's own page at
+  `/t/vibecoding` (where you've explicitly asked to see it).
 - **Mutes comment threads** that mention `vibecoding`, collapsing them into a
   _"muted conversation thread"_ link you can click to expand.
 

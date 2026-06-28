@@ -1,6 +1,6 @@
 import { defineContentScript } from "#imports";
 import { settings } from "@/lib/settings";
-import { buildHideTagsCss } from "@/lib/hide-tags";
+import { buildHideTagsCss, tagsToHideOn } from "@/lib/hide-tags";
 import { muteThreads } from "@/lib/mute";
 
 // Presentation for the "muted" placeholder links. Kept here (the content layer)
@@ -35,8 +35,8 @@ export default defineContentScript({
     const style = document.createElement("style");
     style.dataset.vibesters = "styles";
     const renderStyle = () => {
-      style.textContent =
-        buildHideTagsCss(current.hiddenTags) + PLACEHOLDER_CSS;
+      const tags = tagsToHideOn(location.pathname, current.hiddenTags);
+      style.textContent = buildHideTagsCss(tags) + PLACEHOLDER_CSS;
     };
     renderStyle();
     (document.head ?? document.documentElement).append(style);
