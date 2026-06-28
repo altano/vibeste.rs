@@ -5,7 +5,10 @@
   "description": "Public documentation website for vibeste.rs — static, deployed to GitHub Pages.",
   "license": "MIT",
   "scripts": {
-    "dev": "python3 -m http.server 4321",
-    "preview": "python3 -m http.server 4321"
+    "dev": "live-server --port=4321",
+    "preview": "live-server --port=4321 --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
   }
 }
