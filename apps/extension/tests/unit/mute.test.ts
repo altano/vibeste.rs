@@ -12,7 +12,7 @@ const oxideDoc = (): Document => new JSDOM(oxideThreadHtml).window.document;
 const has = (d: Document, shortid: string): boolean =>
   d.querySelector(`#c_${shortid}`) !== null;
 const labels = (d: Document): string[] =>
-  [...d.querySelectorAll(".vibeste-muted")].map((el) => el.textContent ?? "");
+  [...d.querySelectorAll(".vibesters-muted")].map((el) => el.textContent ?? "");
 
 describe("muteThreads — whole thread (default)", () => {
   it("replaces a matching comment and all its replies with one placeholder", () => {
@@ -24,7 +24,7 @@ describe("muteThreads — whole thread (default)", () => {
 
     // A matches (subtree A+B); D matches (subtree D). C and E untouched.
     expect(muted).toBe(2);
-    expect(d.querySelectorAll(".vibeste-muted").length).toBe(2);
+    expect(d.querySelectorAll(".vibesters-muted").length).toBe(2);
 
     expect(d.querySelector("#c_aaa")).toBeNull(); // matched comment gone
     expect(d.querySelector("#c_bbb")).toBeNull(); // its reply gone too
@@ -44,18 +44,18 @@ describe("muteThreads — whole thread (default)", () => {
     const d = doc();
     muteThreads(d, { muteWords: ["vibecoding"], muteWholeThread: true });
 
-    d.querySelector<HTMLElement>(".vibeste-muted")!.click();
+    d.querySelector<HTMLElement>(".vibesters-muted")!.click();
 
     expect(d.querySelector("#c_aaa")).not.toBeNull();
     expect(d.querySelector("#c_bbb")).not.toBeNull();
-    expect(d.querySelectorAll(".vibeste-muted").length).toBe(1); // D's still muted
+    expect(d.querySelectorAll(".vibesters-muted").length).toBe(1); // D's still muted
   });
 
   it("does not re-mute a thread the user explicitly revealed", () => {
     const d = doc();
     const opts = { muteWords: ["vibecoding"], muteWholeThread: true };
     muteThreads(d, opts);
-    d.querySelector<HTMLElement>(".vibeste-muted")!.click();
+    d.querySelector<HTMLElement>(".vibesters-muted")!.click();
 
     muteThreads(d, opts); // e.g. settings changed → re-applied
 
@@ -99,7 +99,7 @@ describe("muteThreads — matching rules", () => {
     const opts = { muteWords: ["vibecoding"], muteWholeThread: true };
     expect(muteThreads(d, opts)).toBe(2);
     expect(muteThreads(d, opts)).toBe(0); // nothing left to mute
-    expect(d.querySelectorAll(".vibeste-muted").length).toBe(2);
+    expect(d.querySelectorAll(".vibesters-muted").length).toBe(2);
   });
 });
 
@@ -160,7 +160,7 @@ describe("muteThreads — real thread /c/jm2ivd (Oxide Rack 3D Explorer)", () =>
 
     // z9b9ca (1) + ajbeva (1) + xswghd-and-its-whole-subtree (1) = 3 placeholders.
     expect(muted).toBe(3);
-    expect(d.querySelectorAll(".vibeste-muted").length).toBe(3);
+    expect(d.querySelectorAll(".vibesters-muted").length).toBe(3);
 
     // xswghd matched and absorbed its entire subtree — including the nested
     // match twp4bl — into a single placeholder.
@@ -171,7 +171,7 @@ describe("muteThreads — real thread /c/jm2ivd (Oxide Rack 3D Explorer)", () =>
     expect(has(d, "ajbeva")).toBe(false);
 
     // The label reports the subtree size (xswghd + twp4bl + v5cgxa + flsolf).
-    const labels = [...d.querySelectorAll(".vibeste-muted")].map(
+    const labels = [...d.querySelectorAll(".vibesters-muted")].map(
       (e) => e.textContent,
     );
     expect(labels).toContain("muted conversation thread (4 comments)");
@@ -194,7 +194,7 @@ describe("muteThreads — real thread /c/jm2ivd (Oxide Rack 3D Explorer)", () =>
     // though it matches, because its ancestor xswghd already matched. Filter at
     // the top comment that has it; nothing below it is filtered.
     expect(muted).toBe(3);
-    const labels = [...d.querySelectorAll(".vibeste-muted")].map(
+    const labels = [...d.querySelectorAll(".vibesters-muted")].map(
       (e) => e.textContent,
     );
     expect(new Set(labels)).toEqual(new Set(["muted comment"]));

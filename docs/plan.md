@@ -92,7 +92,7 @@ vibeste.rs/
   closure and inserts a placeholder; comment-only mode replaces just the
   `div.comment`, leaving the sibling `ol.comments` (replies) visible. The tops are
   computed before mutating, since muting detaches comments. Click restores; a
-  `data-vibeste-revealed` marker stops re-runs from re-hiding a thread the user
+  `data-vibesters-revealed` marker stops re-runs from re-hiding a thread the user
   opened. Idempotent.
 - **Settings:** one `storage.sync` item `{ hiddenTags, muteWords, muteWholeThread }`,
   defaulting to the `vibecoding` tag, a list of `vibecoding` inflections / alternate

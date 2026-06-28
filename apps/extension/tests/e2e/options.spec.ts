@@ -17,7 +17,7 @@ async function openOptions(page: Page): Promise<void> {
   await page.goto(optionsUrl);
   // Editing before hydration races load() and can corrupt fields; the page
   // sets this marker once the form reflects stored settings.
-  await expect(page.locator("html[data-vibeste-ready]")).toHaveCount(1);
+  await expect(page.locator("html[data-vibesters-ready]")).toHaveCount(1);
 }
 
 /**
@@ -92,7 +92,7 @@ test("editing Muted words changes which comments are muted", async ({
 
   // carol's "distributed systems" thread is muted; the vibecoding comment is
   // not (its words are no longer in the list).
-  const muted = story.locator(".vibeste-muted");
+  const muted = story.locator(".vibesters-muted");
   await expect(muted).toHaveCount(1);
   await expect(story.locator("#c_ccc")).toHaveCount(0);
   await expect(story.locator("#c_ddd")).toHaveCount(0);
@@ -116,7 +116,7 @@ test("turning off Mute scope mutes only the matching comment, not replies", asyn
 
   // Each matching comment is muted on its own; replies/parents stay visible —
   // contrast the whole-thread default, which collapses the subtree (mute.spec).
-  await expect(story.locator(".vibeste-muted")).toHaveCount(2);
+  await expect(story.locator(".vibesters-muted")).toHaveCount(2);
   await expect(story.locator("#c_aaa")).toHaveCount(0); // matches → muted
   await expect(story.locator("#c_bbb")).toHaveCount(1); // its reply stays
   await expect(story.locator("#c_ddd")).toHaveCount(0); // matches → muted

@@ -48,4 +48,4 @@ await load();
 // The form is populated asynchronously; expose a marker so anything observing
 // the page (e.g. e2e tests) can wait for hydration before editing fields,
 // rather than racing the empty initial render.
-document.documentElement.dataset.vibesteReady = "";
+document.documentElement.dataset.vibestersReady = "";

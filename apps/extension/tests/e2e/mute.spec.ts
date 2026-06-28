@@ -7,7 +7,7 @@ test("mutes a comment thread mentioning vibecoding and restores it on click", as
   await serve(page, html("comments.html"));
   await page.goto("https://lobste.rs/s/story1/a_story");
 
-  const placeholders = page.locator(".vibeste-muted");
+  const placeholders = page.locator(".vibesters-muted");
   await expect(placeholders.first()).toBeVisible();
 
   // The matching comment (and its reply) are removed behind the placeholder.
@@ -30,7 +30,7 @@ test("mutes a real lobste.rs thread (/c/jm2ivd) with the default settings", asyn
   // The defaults include the "videcoding" misspelling, so jm2ivd itself matches —
   // and because it's the top of the sub-thread, its entire subtree (10 comments)
   // collapses into a single placeholder.
-  const muted = page.locator(".vibeste-muted");
+  const muted = page.locator(".vibesters-muted");
   await expect(muted).toHaveCount(1);
   await expect(muted).toHaveText("muted conversation thread (10 comments)");
   await expect(page.locator("#c_jm2ivd")).toHaveCount(0);

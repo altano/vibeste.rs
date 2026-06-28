@@ -28,9 +28,9 @@ export interface MuteOptions {
   muteWholeThread: boolean;
 }
 
-const PLACEHOLDER_CLASS = "vibeste-muted";
+const PLACEHOLDER_CLASS = "vibesters-muted";
 /** Set on a target the user explicitly revealed, so re-runs leave it shown. */
-const REVEALED_ATTR = "data-vibeste-revealed";
+const REVEALED_ATTR = "data-vibesters-revealed";
 
 /**
  * Replace matching comments with a clickable "muted" placeholder that restores
@@ -130,7 +130,7 @@ function makePlaceholder(doc: Document, label: string): HTMLAnchorElement {
   link.setAttribute("role", "button");
   link.title = "Click to show";
   link.textContent = label;
-  link.dataset.vibeste = "placeholder";
+  link.dataset.vibesters = "placeholder";
   return link;
 }
 

@@ -29,7 +29,7 @@ export default defineConfig({
       ? {
           browser_specific_settings: {
             gecko: {
-              id: "vibeste-rs@norbauer.com",
+              id: "vibesters@norbauer.com",
               strict_min_version: "115.0",
               // We collect nothing. Declaring this explicitly satisfies AMO's
               // data-collection requirement and silences the build warning.

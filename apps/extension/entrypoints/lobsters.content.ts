@@ -6,7 +6,7 @@ import { muteThreads } from "@/lib/mute";
 // Presentation for the "muted" placeholder links. Kept here (the content layer)
 // rather than in the pure logic so mute.ts stays DOM-only and easily testable.
 const PLACEHOLDER_CSS = `
-.vibeste-muted {
+.vibesters-muted {
   display: inline-block;
   margin: 0.3em 0;
   padding: 0.1em 0.5em;
@@ -18,8 +18,8 @@ const PLACEHOLDER_CSS = `
   cursor: pointer;
   text-decoration: none;
 }
-.vibeste-muted::before { content: "▸ "; font-style: normal; }
-.vibeste-muted:hover { color: #555; }
+.vibesters-muted::before { content: "▸ "; font-style: normal; }
+.vibesters-muted:hover { color: #555; }
 `;
 
 export default defineContentScript({
@@ -33,7 +33,7 @@ export default defineContentScript({
     // (a) Hide tags via an injected stylesheet — declarative, so it also covers
     // any tags added to the DOM later without re-running JavaScript.
     const style = document.createElement("style");
-    style.dataset.vibeste = "styles";
+    style.dataset.vibesters = "styles";
     const renderStyle = () => {
       style.textContent =
         buildHideTagsCss(current.hiddenTags) + PLACEHOLDER_CSS;

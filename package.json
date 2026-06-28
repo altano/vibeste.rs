@@ -1,5 +1,5 @@
 {
-  "name": "vibeste-rs",
+  "name": "vibesters",
   "version": "0.1.0",
   "private": true,
   "description": "Browser extension that hides vibecoding tags and mutes vibecoding comment threads on lobste.rs",
