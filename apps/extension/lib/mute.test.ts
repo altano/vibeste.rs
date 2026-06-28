@@ -2,8 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
 import { muteThreads } from './mute';
 import commentsHtml from '../e2e/html/comments.html?raw';
+// Real captured thread: https://lobste.rs/c/jm2ivd (the "Oxide Rack 3D Explorer"
+// story). See the comment tree in the describe block below.
+import oxideThreadHtml from '../e2e/html/oxide-rack-thread.html?raw';
 
 const doc = (): Document => new JSDOM(commentsHtml).window.document;
+const oxideDoc = (): Document => new JSDOM(oxideThreadHtml).window.document;
+const has = (d: Document, shortid: string): boolean =>
+  d.querySelector(`#c_${shortid}`) !== null;
 const labels = (d: Document): string[] =>
   [...d.querySelectorAll('.vibeste-muted')].map((el) => el.textContent ?? '');
 
@@ -81,5 +87,75 @@ describe('muteThreads — matching rules', () => {
     expect(muteThreads(d, opts)).toBe(2);
     expect(muteThreads(d, opts)).toBe(0); // nothing left to mute
     expect(d.querySelectorAll('.vibeste-muted').length).toBe(2);
+  });
+});
+
+// A real lobste.rs thread, captured from https://lobste.rs/c/jm2ivd. Tree:
+//
+//   jm2ivd  "…tagged as videcoding…"   (typo: "videcoding" ≠ "vibecoding")
+//   ├─ z9b9ca  [vibecoding]            (no replies)
+//   └─ djfqh3
+//      ├─ ajbeva  [vibecoding]         (no replies)
+//      ├─ xswghd  [vibecoding]         ← matches AND has replies
+//      │  ├─ twp4bl [vibecoding]
+//      │  │  └─ v5cgxa
+//      │  └─ flsolf
+//      └─ hzu6m0
+//         └─ nwn3oa
+//
+// Only z9b9ca, ajbeva, xswghd, twp4bl contain the word "vibecoding".
+describe('muteThreads — real thread /c/jm2ivd (Oxide Rack 3D Explorer)', () => {
+  const opts = (muteWholeThread: boolean) => ({
+    muteWords: ['vibecoding'],
+    muteWholeThread,
+  });
+
+  it('whole thread: collapses each matching comment with all its replies', () => {
+    const d = oxideDoc();
+    const muted = muteThreads(d, opts(true));
+
+    // z9b9ca (1) + ajbeva (1) + xswghd-and-its-whole-subtree (1) = 3 placeholders.
+    expect(muted).toBe(3);
+    expect(d.querySelectorAll('.vibeste-muted').length).toBe(3);
+
+    // xswghd matched and absorbed its entire subtree — including the nested
+    // match twp4bl — into a single placeholder.
+    for (const id of ['xswghd', 'twp4bl', 'v5cgxa', 'flsolf']) {
+      expect(has(d, id)).toBe(false);
+    }
+    expect(has(d, 'z9b9ca')).toBe(false);
+    expect(has(d, 'ajbeva')).toBe(false);
+
+    // The label reports the subtree size (xswghd + twp4bl + v5cgxa + flsolf).
+    const labels = [...d.querySelectorAll('.vibeste-muted')].map((e) => e.textContent);
+    expect(labels).toContain('muted conversation thread (4 comments)');
+    expect(labels.filter((l) => l === 'muted conversation thread (1 comment)')).toHaveLength(2);
+
+    // Non-matching comments survive — including jm2ivd, whose "videcoding" typo
+    // must NOT match "vibecoding" (whole-word, exact).
+    for (const id of ['jm2ivd', 'djfqh3', 'hzu6m0', 'nwn3oa', 'bpkgjb']) {
+      expect(has(d, id)).toBe(true);
+    }
+  });
+
+  it('comment only: mutes the top matching comment and leaves matching descendants alone', () => {
+    const d = oxideDoc();
+    const muted = muteThreads(d, opts(false));
+
+    // z9b9ca, ajbeva and xswghd are muted individually — but twp4bl is NOT, even
+    // though it matches, because its ancestor xswghd already matched. Filter at
+    // the top comment that has it; nothing below it is filtered.
+    expect(muted).toBe(3);
+    const labels = [...d.querySelectorAll('.vibeste-muted')].map((e) => e.textContent);
+    expect(new Set(labels)).toEqual(new Set(['muted comment']));
+
+    for (const id of ['z9b9ca', 'ajbeva', 'xswghd']) {
+      expect(has(d, id)).toBe(false);
+    }
+    // The nested match twp4bl stays in place, and so do the surrounding replies.
+    expect(has(d, 'twp4bl')).toBe(true);
+    expect(has(d, 'flsolf')).toBe(true); // xswghd's other reply
+    expect(has(d, 'v5cgxa')).toBe(true); // twp4bl's reply
+    expect(has(d, 'jm2ivd')).toBe(true); // typo, never matched
   });
 });

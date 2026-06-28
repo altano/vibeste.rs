@@ -41,11 +41,21 @@ export function muteThreads(doc: Document, opts: MuteOptions): number {
   const regex = buildWordRegex(opts.muteWords);
   if (!regex) return 0;
 
-  let muted = 0;
-  // Document order ⇒ ancestors before descendants. Once a subtree is muted in
-  // whole-thread mode its descendant comments are detached (isConnected=false)
-  // and skipped below, so each region is muted exactly once.
+  // Find every comment whose own text matches, up front and without mutating.
+  const matching = new Set<HTMLElement>();
   for (const comment of doc.querySelectorAll<HTMLElement>('div.comment')) {
+    if (regex.test(ownText(comment))) matching.add(comment);
+  }
+
+  // Keep only the *topmost* match in each ancestor chain: when a word appears in
+  // a comment and also in one of its descendants, we filter at the ancestor and
+  // leave everything below it alone (in whole-thread mode the descendants are
+  // collapsed away; in comment-only mode they simply stay as-is). Computed
+  // before any mutation, since muting detaches comments from the tree.
+  const tops = [...matching].filter((c) => !hasMatchingAncestor(c, matching));
+
+  let muted = 0;
+  for (const comment of tops) {
     if (!comment.isConnected) continue;
 
     const subtree = comment.closest<HTMLElement>('li.comments_subtree');
@@ -54,14 +64,33 @@ export function muteThreads(doc: Document, opts: MuteOptions): number {
     const target = opts.muteWholeThread ? subtree : comment;
     if (target.hasAttribute(REVEALED_ATTR)) continue;
 
-    const ownText = comment.querySelector('.comment_text')?.textContent ?? '';
-    if (!regex.test(ownText)) continue;
-
     if (opts.muteWholeThread) muteSubtree(doc, subtree);
     else muteComment(doc, comment);
     muted++;
   }
   return muted;
+}
+
+/** A comment's own text. Replies live outside its `div.comment`, so are excluded. */
+function ownText(comment: HTMLElement): string {
+  return comment.querySelector('.comment_text')?.textContent ?? '';
+}
+
+/** True if a comment higher up the tree is also in `matching`. */
+function hasMatchingAncestor(
+  comment: HTMLElement,
+  matching: Set<HTMLElement>,
+): boolean {
+  let li =
+    comment
+      .closest<HTMLElement>('li.comments_subtree')
+      ?.parentElement?.closest<HTMLElement>('li.comments_subtree') ?? null;
+  while (li) {
+    const ancestor = li.querySelector<HTMLElement>(':scope > div.comment');
+    if (ancestor && matching.has(ancestor)) return true;
+    li = li.parentElement?.closest<HTMLElement>('li.comments_subtree') ?? null;
+  }
+  return false;
 }
 
 /** Hide a comment and its whole reply subtree behind one placeholder. */

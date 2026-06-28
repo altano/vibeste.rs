@@ -82,11 +82,15 @@ vibeste.rs/
   (`span.tags > a.tag_<slug>{display:none !important}`), injected at
   `document_start` to avoid a flash. Declarative, so dynamically-added tags are
   covered without re-running JS. Re-rendered on settings change.
-- **Muting** walks `div.comment` top-down. Whole-thread mode detaches the
-  enclosing `li.comments_subtree`'s contents into a closure and inserts a
-  placeholder; comment-only mode replaces just the `div.comment`, leaving the
-  sibling `ol.comments` (replies) visible. Click restores; a `data-vibeste-revealed`
-  marker stops re-runs from re-hiding a thread the user opened. Idempotent.
+- **Muting** collects all matching `div.comment`s, then filters only the
+  *topmost* match in each ancestor chain: if a word appears in a comment **and**
+  one of its descendants, only the ancestor is filtered (no nested placeholders).
+  Whole-thread mode detaches the enclosing `li.comments_subtree`'s contents into a
+  closure and inserts a placeholder; comment-only mode replaces just the
+  `div.comment`, leaving the sibling `ol.comments` (replies) visible. The tops are
+  computed before mutating, since muting detaches comments. Click restores; a
+  `data-vibeste-revealed` marker stops re-runs from re-hiding a thread the user
+  opened. Idempotent.
 - **Settings:** one `storage.sync` item `{ hiddenTags, muteWords, muteWholeThread }`,
   defaulting to `vibecoding` / `vibecoding` / whole-thread so it works on install.
   Firefox needs `gecko.id` for `storage.sync` to persist — handled in config.
