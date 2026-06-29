@@ -20,6 +20,7 @@
     "build:safari": "pnpm -r run build:safari",
     "zip": "pnpm -r run zip",
     "regen:icons": "bash scripts/regen-icons.sh",
+    "regen:screenshots": "node scripts/screenshots.mjs",
     "postinstall": "pnpm -r --if-present run postinstall"
   },
   "pnpm": {

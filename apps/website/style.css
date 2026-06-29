@@ -6,9 +6,8 @@
   --accent: #a01b0b;
   --card: #ffffff;
   --border: #e6e3dd;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
+
+  @media (prefers-color-scheme: dark) {
     --bg: #16140f;
     --fg: #ece9e2;
     --muted: #9a968c;
@@ -33,7 +32,7 @@ body {
   font:
     16px/1.65 system-ui,
     -apple-system,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     sans-serif;
 }
@@ -49,14 +48,12 @@ a {
 }
 
 header {
-  text-align: center;
   margin-bottom: 2.5rem;
 }
 
 .logo {
   width: 72px;
   height: 72px;
-  border-radius: 16px;
   display: block;
   margin: 0 auto 1rem;
 }
@@ -75,14 +72,13 @@ h1 {
 
 h2 {
   font-size: 1.3rem;
-  margin: 2.5rem 0 0.75rem;
+  margin: 2rem 0 0.75rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-}
 
-section:first-of-type h2 {
-  border-top: 0;
-  padding-top: 0;
+  section:first-of-type & {
+    border-top: 0;
+    padding-top: 0;
+  }
 }
 
 ul {
@@ -107,39 +103,75 @@ pre {
   border-radius: 8px;
   padding: 0.9rem 1rem;
   overflow-x: auto;
-}
-pre code {
-  background: none;
-  padding: 0;
+
+  code {
+    background: none;
+    padding: 0;
+  }
 }
 
-.cards {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+figure {
+  margin: 1.5rem 0 0;
 }
-.card {
-  background: var(--card);
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 1rem 1.1rem;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+
+  /* The options page is near-square; full width would tower over the text. */
+  &--narrow {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
 }
-.card h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
-}
-.card p {
-  margin: 0;
+figcaption {
+  margin-top: 0.55rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+}
+.before-after {
+  display: grid;
+  gap: 1rem;
+
+  .label {
+    margin: 0 0 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
 }
 
-.note {
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 8px 8px 0;
-  padding: 0.75rem 1rem;
-  margin: 1.25rem 0;
+blockquote {
+  margin: 1.25rem 1.5rem;
+  padding: 0.1rem 0 0.1rem 1rem;
+  border-left: 3px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  .attribution {
+    color: var(--muted);
+    font-size: 0.9rem;
+
+    cite {
+      font-weight: 600;
+      color: var(--fg);
+    }
+  }
+
+  p:not(.attribution) {
+    font-style: oblique;
+  }
+}
+
+p.aside {
+  font-style: oblique;
 }
 
 footer {

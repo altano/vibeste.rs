@@ -17,38 +17,120 @@
         <img class="logo" src="./icon-128.png" alt="" />
         <h1>vibeste.rs</h1>
         <p class="tagline">
-          A quieter lobste.rs. Hide the vibe, mute the threads.
+          Have a quieter <a href="https://lobste.rs">lobste.rs</a> with this
+          small, open-source browser extension that hides the vibecoding tag and
+          mutes vibecoding comment threads.
         </p>
       </header>
 
-      <section>
-        <h2>What it does</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>Hides the tag</h3>
-            <p>
-              The <code>vibecoding</code> tag is hidden wherever it annotates a
-              story — home, story, and tag pages. Your Filtered Tags settings
-              page is never touched.
-            </p>
+      <section class="feature">
+        <h2>Hides the “vibecoding” tag</h2>
+        <p>
+          The <code>vibecoding</code> tag is hidden wherever it annotates a
+          story (e.g. home and story pages). Only the tag itself is hidden, not
+          the tagged stories. The Filtered Tags settings page, and the tag’s own
+          page at <code>/t/vibecoding</code> (where you’ve asked to see it), are
+          left untouched.
+        </p>
+        <figure>
+          <div class="before-after">
+            <div>
+              <p class="label">Before</p>
+              <img
+                class="shot"
+                src="./screenshots/tag-before.png"
+                width="946"
+                height="59"
+                loading="lazy"
+                alt="A lobste.rs story row tagged “security” and “vibecoding”."
+              />
+            </div>
+            <div>
+              <p class="label">After</p>
+              <img
+                class="shot"
+                src="./screenshots/tag-after.png"
+                width="946"
+                height="59"
+                loading="lazy"
+                alt="The same story row with the “vibecoding” tag hidden; only “security” remains."
+              />
+            </div>
           </div>
-          <div class="card">
-            <h3>Mutes the threads</h3>
-            <p>
-              Any comment mentioning <code>vibecoding</code> — or its variants
-              and common misspellings — is collapsed into a
-              <em>“muted conversation thread”</em> link. Click it to read the
-              thread anyway.
-            </p>
+        </figure>
+      </section>
+
+      <section class="feature">
+        <h2>Mutes any conversation mentioning “vibecoding”</h2>
+        <p>
+          Any comment mentioning <code>vibecoding</code> (or its variants and
+          common misspellings) is collapsed into a
+          <em>“muted conversation thread”</em> link. Click it to read the
+          thread.
+        </p>
+        <figure>
+          <div class="before-after">
+            <div>
+              <p class="label">Before</p>
+              <img
+                class="shot"
+                src="./screenshots/muted-before.png"
+                width="951"
+                height="1118"
+                loading="lazy"
+                alt="A lobste.rs comment section showing a ten-comment argument about the “vibecoding” tag."
+              />
+            </div>
+            <div>
+              <p class="label">After</p>
+              <img
+                class="shot"
+                src="./screenshots/muted-after.png"
+                width="951"
+                height="116"
+                loading="lazy"
+                alt="The same thread collapsed into a single “muted conversation thread (10 comments)” link."
+              />
+            </div>
           </div>
-          <div class="card">
-            <h3>Your rules</h3>
-            <p>
-              Choose which tags to hide, which words to mute, and whether to
-              mute a whole reply tree or just the matching comment.
-            </p>
-          </div>
-        </div>
+        </figure>
+      </section>
+
+      <section class="feature">
+        <h2>Customizable rules</h2>
+        <p>
+          Choose which tags to hide, which words to mute, and whether to mute a
+          whole comment thread or just the muted comment. Open the extension’s
+          options page to change:
+        </p>
+        <ul>
+          <li>
+            <strong>Hidden tags</strong> — one tag slug per line (default
+            <code>vibecoding</code>).
+          </li>
+          <li>
+            <strong>Muted words</strong> — one word or phrase per line, matched
+            whole-word and case-insensitively.
+          </li>
+          <li>
+            <strong>Mute scope</strong> — the whole thread (default) or only the
+            matching comment.
+          </li>
+        </ul>
+        <p>
+          Settings sync across your browsers and apply immediately, no reload
+          needed.
+        </p>
+        <figure>
+          <img
+            class="shot shot--narrow"
+            src="./screenshots/settings.png"
+            width="640"
+            height="638"
+            loading="lazy"
+            alt="The extension’s options page, with Hidden tags, Muted words, and Mute scope sections."
+          />
+        </figure>
       </section>
 
       <section>
@@ -58,7 +140,7 @@
           base. While store listings are pending, you can build and load it
           yourself:
         </p>
-        <pre><code>git clone https://github.com/norbauer/vibeste.rs
+        <pre><code>git clone https://github.com/altano/vibeste.rs
 cd vibeste.rs
 nix develop            # or: corepack enable pnpm
 pnpm install
@@ -84,46 +166,169 @@ pnpm build:firefox     # Firefox → apps/extension/.output/firefox-mv2</code></
       </section>
 
       <section>
-        <h2>Settings</h2>
-        <p>Open the extension’s options page to change:</p>
-        <ul>
-          <li>
-            <strong>Hidden tags</strong> — one tag slug per line (default
-            <code>vibecoding</code>).
-          </li>
-          <li>
-            <strong>Muted words</strong> — one word or phrase per line, matched
-            whole-word and case-insensitively.
-          </li>
-          <li>
-            <strong>Mute scope</strong> — the whole thread (default) or only the
-            matching comment.
-          </li>
-        </ul>
+        <h2>Privacy</h2>
+        <div class="note">
+          <strong
+            >This extension does not have any telemetry or tracking. No network
+            requests are made.</strong
+          >
+          The only permission requested is <code>storage</code> (for your
+          settings), and the code only ever runs on <code>lobste.rs</code> and
+          <code>lobsters.dev</code>. Nothing leaves your browser.
+        </div>
+      </section>
+
+      <section class="feature">
+        <h2>Why this exists</h2>
         <p>
-          Settings sync across your browsers and apply immediately, no reload
-          needed.
+          This extension is not a statement about the state of AI discourse. I
+          just want to stop seeing said discourse on
+          <a href="https://lobste.rs">lobste.rs</a>, specifically all
+          conversation around the experience-destroying
+          <code>vibecoding</code> tag, which seems to serve no population well
+          while flooding the site with pointless meta-debate.
+        </p>
+        <p>
+          A lot of people are tired of the status quo, and I have never seen a
+          single subject result in so many comments from people saying that it
+          is totally ruining their experience of the site, myself included:
+        </p>
+
+        <blockquote>
+          <p>
+            It’s completely ruining the experience for me, and I’m pretty much
+            done with this site at this point. It’s not even correct in its use
+            of the term.
+          </p>
+          <p class="attribution">
+            — <cite>jperkin</cite>, on
+            <a href="https://lobste.rs/c/flsolf">“Oxide Rack 3D Explorer”</a>
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            This tag has caused a lot of problems and I personally don’t like
+            it. I’d be more supportive of getting rid of it than trying to
+            further guide its use.
+          </p>
+          <p class="attribution">
+            — <cite>adriano</cite>, on
+            <a href="https://lobste.rs/c/gd390i"
+              >“Can we stop tagging every thing as vibecoding?”</a
+            >
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            … And then I come on here and see my own hand written articles, in
+            my own voice, which tangentially touch on LLM stuff because - IT’S
+            EVERYWHERE - only to be slapped with a “vibecoding” tag. Makes me
+            wonder wtf I am doing. …
+          </p>
+          <p class="attribution">
+            — <cite>LAC-Tech</cite>, on
+            <a href="https://lobste.rs/c/klzkis"
+              >“Can we stop tagging every thing as vibecoding?”</a
+            >
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            … The worst part about this trend is that these people just add
+            noise and distract from any interesting discussion. The whole
+            threads turn into a debate of whether an em dash somebody spotted is
+            proof that text was LLM generated. …
+          </p>
+          <p class="attribution">
+            — <cite>Yogthos</cite>, on
+            <a href="https://lobste.rs/c/fgomig"
+              >“Can we stop tagging every thing as vibecoding?”</a
+            >
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            May I also suggest, for the umpteenth time, FIXING THE TAG. The
+            current definition is ungrammatical and ambiguous, and (depending on
+            your personal interpretation) overbroad …
+          </p>
+          <p class="attribution">
+            — <cite>wrs</cite>, on
+            <a href="https://lobste.rs/c/mhl39i"
+              >“Proposal: Add Hotness -.25 to Vibe Coding”</a
+            >
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            This is a bad Lobste.rs editorial policy that I have unsuccessfully
+            argued against a few times …
+          </p>
+          <p class="attribution">
+            — <cite>simonw</cite>, on
+            <a href="https://lobste.rs/c/vafhpt"
+              >“Can we stop tagging every thing as vibecoding?”</a
+            >
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            … the abuse of the vibecoding tag, the follow-up arguments that
+            happen when it is abused and, <em>even more so</em>, the lack of
+            comments from the moderators is… not what I expect.
+          </p>
+          <p class="attribution">
+            — <cite>jmmv</cite>, on
+            <a href="https://lobste.rs/c/vgw6x4"
+              >“Can we stop tagging every thing as vibecoding?”</a
+            >
+          </p>
+        </blockquote>
+
+        <p class="aside">
+          (If I messed up quoting you above or you don’t want your quote here,
+          just <a href="mailto:alan@norbauer.com">email me</a> and I’ll take it
+          down immediately.)
+        </p>
+
+        <p>
+          <strong
+            >This extension just makes the noise disappear for those who’d
+            rather get back to reading the stories.</strong
+          >
+        </p>
+
+        <p>
+          A bonus side-effect would be to get some action taken by the lobste.rs
+          volunteer moderation team to improve this situation, but that is
+          hardly required or expected. I have great respect for these folks and
+          don’t want to make their lives any harder.
         </p>
       </section>
 
-      <section>
-        <h2>Privacy</h2>
-        <div class="note">
-          <strong>No tracking. No network. No nonsense.</strong> The only
-          permission requested is <code>storage</code> (for your settings), and
-          the code only ever runs on <code>lobste.rs</code> and
-          <code>lobsters.dev</code>. There is no telemetry, no analytics, and
-          nothing leaves your browser.
-        </div>
+      <section class="feature">
+        <h2>AI Disclosure</h2>
+        <p>
+          In order to maximize any potential irony, this extension's source code
+          is as AI-vibecoded as I could muster. All the prose on this website is
+          hand-written because AI prose is still garbage as of today.
+        </p>
       </section>
 
       <footer>
         <p>
           Free and open source under the MIT license ·
-          <a href="https://github.com/norbauer/vibeste.rs">Source code</a> ·
-          <a href="https://github.com/norbauer/vibeste.rs/tree/main/docs"
-            >Design notes</a
-          >
+          <a href="https://github.com/altano/vibeste.rs">Source code</a>
+        </p>
+        <p>
+          Brought to you by
+          <a href="https://alan.norbauer.com">alan norbauer</a>
         </p>
       </footer>
     </main>
