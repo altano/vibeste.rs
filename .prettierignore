@@ -9,3 +9,6 @@ pnpm-lock.yaml
 # exercise the exact markup the extension sees in the wild. Reformatting these
 # would alter whitespace-sensitive text nodes the DOM transforms rely on.
 apps/extension/tests/fixtures/html/
+
+# google site verification
+apps/website/google3dbdbcfc19857c18.html
