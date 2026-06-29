@@ -1,20 +1,11 @@
 :root {
   color-scheme: light dark;
-  --bg: #fbfaf8;
-  --fg: #1c1b19;
-  --muted: #6b6962;
-  --accent: #a01b0b;
-  --card: #ffffff;
-  --border: #e6e3dd;
-
-  @media (prefers-color-scheme: dark) {
-    --bg: #16140f;
-    --fg: #ece9e2;
-    --muted: #9a968c;
-    --accent: #e6694f;
-    --card: #1f1c16;
-    --border: #322e26;
-  }
+  --bg: light-dark(#fbfaf8, #16140f);
+  --fg: light-dark(#1c1b19, #ece9e2);
+  --muted: light-dark(#6b6962, #9a968c);
+  --accent: light-dark(#a01b0b, #e6694f);
+  --card: light-dark(#ffffff, #1f1c16);
+  --border: light-dark(#e6e3dd, #322e26);
 }
 
 * {
@@ -143,6 +134,109 @@ figcaption {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--muted);
+  }
+}
+
+/* Install — one tile per browser, each linking to its store or build docs. */
+.browsers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+
+  @media (max-width: 30rem) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+a.browser {
+  transition:
+    border-color 0.05s,
+    box-shadow 0.05s,
+    transform 0.05s;
+
+  &:hover {
+    box-shadow: 0 2px 10px light-dark(rgb(0 0 0 / 10%), rgb(150 150 150 / 10%));
+    transform: translateY(-2px);
+  }
+}
+
+/* CSS */
+.browser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--fg);
+  text-decoration: none;
+  overflow: hidden;
+
+  position: relative;
+  overflow: hidden;
+  width: 163px;
+  height: 137px;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px light-dark(rgb(0 0 0 / 10%), rgb(150 150 150 / 10%));
+
+  img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* Not a link (e.g. a store listing that isn't live yet). */
+  &.disabled img,
+  &.disabled .name {
+    opacity: 0.3;
+  }
+
+  .ribbon {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    top: 20px;
+    right: -45px;
+    width: 150px;
+
+    min-height: 1.5rem;
+    padding: 0.1rem 0;
+
+    font-size: 0.6rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    line-height: 1;
+
+    /* Variants */
+    background: var(--fg);
+    color: var(--bg);
+
+    /* The live store listing. */
+    &.available {
+      background: light-dark(rgb(74, 255, 192), rgb(157, 255, 221));
+      color: black;
+    }
+
+    /* Submitted, awaiting store approval. */
+    &.pending {
+      background: light-dark(rgb(254, 251, 112), rgb(248, 246, 153));
+      color: black;
+    }
   }
 }
 

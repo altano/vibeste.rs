@@ -23,6 +23,46 @@
         </p>
       </header>
 
+      <section class="install">
+        <h2>Install</h2>
+        <!--
+          Browser logos from alrra/browser-logos (MIT). Bundled locally so the
+          page makes no external requests. Names and logos are trademarks of
+          their respective owners.
+        -->
+        <div class="browsers">
+          <a
+            class="browser"
+            href="https://chromewebstore.google.com/detail/vibesters/hjnkfiahlgknhllmjjhmiabjgiiikkga"
+          >
+            <img src="./browsers/chrome.svg" width="75" height="75" alt="" />
+            <span class="name">Chrome</span>
+            <div class="ribbon available">Available</div>
+          </a>
+
+          <div class="browser disabled">
+            <img src="./browsers/firefox.svg" width="75" height="75" alt="" />
+            <span class="name">Firefox</span>
+            <span class="ribbon pending">Pending<br />review</span>
+          </div>
+
+          <a class="browser" href="https://github.com/altano/vibeste.rs#safari">
+            <img src="./browsers/safari.svg" width="75" height="75" alt="" />
+            <span class="name">Safari</span>
+            <span class="ribbon">Build<br />from src</span>
+          </a>
+
+          <a
+            class="browser"
+            href="https://github.com/altano/vibeste.rs#load-it-in-a-browser"
+          >
+            <img src="./browsers/edge.svg" width="75" height="75" alt="" />
+            <span class="name">Edge</span>
+            <span class="ribbon">Manual<br />install</span>
+          </a>
+        </div>
+      </section>
+
       <section class="feature">
         <h2>Hides the “vibecoding” tag</h2>
         <p>
@@ -131,38 +171,6 @@
             alt="The extension’s options page, with Hidden tags, Muted words, and Mute scope sections."
           />
         </figure>
-      </section>
-
-      <section>
-        <h2>Install</h2>
-        <p>
-          The extension works on Chrome, Firefox, and Safari from a single code
-          base. While store listings are pending, you can build and load it
-          yourself:
-        </p>
-        <pre><code>git clone https://github.com/altano/vibeste.rs
-cd vibeste.rs
-nix develop            # or: corepack enable pnpm
-pnpm install
-pnpm build             # Chrome → apps/extension/.output/chrome-mv3
-pnpm build:firefox     # Firefox → apps/extension/.output/firefox-mv2</code></pre>
-        <ul>
-          <li>
-            <strong>Chrome / Edge:</strong> open
-            <code>chrome://extensions</code>, enable Developer mode, and “Load
-            unpacked” the <code>chrome-mv3</code> folder.
-          </li>
-          <li>
-            <strong>Firefox:</strong> open <code>about:debugging</code> → This
-            Firefox → “Load Temporary Add-on”, and pick any file in
-            <code>firefox-mv2</code>. (Or run <code>pnpm dev:firefox</code>.)
-          </li>
-          <li>
-            <strong>Safari:</strong> build with <code>pnpm build:safari</code>,
-            then wrap it with Apple’s
-            <code>xcrun safari-web-extension-converter</code> — see the README.
-          </li>
-        </ul>
       </section>
 
       <section>
@@ -313,11 +321,10 @@ pnpm build:firefox     # Firefox → apps/extension/.output/firefox-mv2</code></
       </section>
 
       <section class="feature">
-        <h2>AI Disclosure</h2>
+        <h2>AI Notice 🤖</h2>
         <p>
           In order to maximize any potential irony, this extension's source code
-          is as AI-vibecoded as I could muster. All the prose on this website is
-          hand-written because AI prose is still garbage as of today.
+          is as AI-vibecoded as I could stomach.
         </p>
       </section>
 

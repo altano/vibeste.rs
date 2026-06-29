@@ -28,6 +28,8 @@ The code in this repository is vibecoded and mostly human-reviewed.
 Requires Node ≥ 20 and pnpm. The Nix flake provides both:
 
 ```sh
+git clone https://github.com/altano/vibeste.rs
+cd vibeste.rs
 nix develop          # or bring your own Node + `corepack enable pnpm`
 pnpm install
 ```
