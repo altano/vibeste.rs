@@ -94,11 +94,13 @@ describe("muteThreads — matching rules", () => {
     ).toBe(0);
   });
 
-  it("is idempotent across repeated runs", () => {
+  it("keeps a stable result across repeated runs", () => {
     const d = doc();
     const opts = { muteWords: ["vibecoding"], muteWholeThread: true };
     expect(muteThreads(d, opts)).toBe(2);
-    expect(muteThreads(d, opts)).toBe(0); // nothing left to mute
+    // Each run restores its own prior mutes and re-applies, so it re-mutes the
+    // same two — the placeholders don't pile up.
+    expect(muteThreads(d, opts)).toBe(2);
     expect(d.querySelectorAll(".vibesters-muted").length).toBe(2);
   });
 });
@@ -186,26 +188,26 @@ describe("muteThreads — real thread /c/jm2ivd (Oxide Rack 3D Explorer)", () =>
     }
   });
 
-  it("comment only: mutes the top matching comment and leaves matching descendants alone", () => {
+  it("comment only: mutes every matching comment individually, including nested matches", () => {
     const d = oxideDoc();
     const muted = muteThreads(d, opts(false));
 
-    // z9b9ca, ajbeva and xswghd are muted individually — but twp4bl is NOT, even
-    // though it matches, because its ancestor xswghd already matched. Filter at
-    // the top comment that has it; nothing below it is filtered.
-    expect(muted).toBe(3);
+    // Every comment containing the word is muted on its own — including twp4bl,
+    // whose ancestor xswghd also matches. Comment-only hides just the comment,
+    // so a nested match isn't absorbed by its parent the way whole-thread is.
+    expect(muted).toBe(4);
     const labels = [...d.querySelectorAll(".vibesters-muted")].map(
       (e) => e.textContent,
     );
     expect(new Set(labels)).toEqual(new Set(["muted comment"]));
 
-    for (const id of ["z9b9ca", "ajbeva", "xswghd"]) {
+    for (const id of ["z9b9ca", "ajbeva", "xswghd", "twp4bl"]) {
       expect(has(d, id)).toBe(false);
     }
-    // The nested match twp4bl stays in place, and so do the surrounding replies.
-    expect(has(d, "twp4bl")).toBe(true);
-    expect(has(d, "flsolf")).toBe(true); // xswghd's other reply
-    expect(has(d, "v5cgxa")).toBe(true); // twp4bl's reply
+    // Non-matching replies stay: flsolf (xswghd's other reply) and v5cgxa
+    // (twp4bl's reply — only the comment was muted, not its subtree).
+    expect(has(d, "flsolf")).toBe(true);
+    expect(has(d, "v5cgxa")).toBe(true);
     expect(has(d, "jm2ivd")).toBe(true); // typo, never matched
   });
 });

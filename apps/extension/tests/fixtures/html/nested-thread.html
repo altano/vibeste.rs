@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A nested thread — Lobsters</title>
+  </head>
+  <body>
+    <!--
+      Structure mirrors live lobste.rs comment markup. The tree (★ = mentions
+      "vibecoding", so it matches the default mute words):
+
+        root  ★
+        ├─ ch1  ★
+        │  ├─ gc1
+        │  └─ gc2  ★
+        └─ ch2
+           ├─ gc3  ★
+           └─ gc4
+    -->
+    <ol class="comments comments1" id="comments">
+      <li class="comments_subtree" id="comments-story1">
+        <ol class="comments" id="story_comments">
+          <!-- root: matches; replies are ch1 and ch2. -->
+          <li class="comments_subtree">
+            <input
+              id="comment_folder_root"
+              class="comment_folder_button"
+              type="checkbox"
+            />
+            <div id="c_root" data-shortid="root" class="comment">
+              <div class="voters"><a class="upvoter" href="/login">8</a></div>
+              <div class="details">
+                <div class="byline"><a href="/~alice">alice</a></div>
+                <div class="comment_text">
+                  <p>This whole submission is just vibecoding, honestly.</p>
+                </div>
+              </div>
+            </div>
+            <ol class="comments">
+              <!-- ch1: matches; replies are gc1 and gc2. -->
+              <li class="comments_subtree">
+                <input
+                  id="comment_folder_ch1"
+                  class="comment_folder_button"
+                  type="checkbox"
+                />
+                <div id="c_ch1" data-shortid="ch1" class="comment">
+                  <div class="voters">
+                    <a class="upvoter" href="/login">4</a>
+                  </div>
+                  <div class="details">
+                    <div class="byline"><a href="/~bob">bob</a></div>
+                    <div class="comment_text">
+                      <p>Agreed, it's vibecoding all the way down.</p>
+                    </div>
+                  </div>
+                </div>
+                <ol class="comments">
+                  <!-- gc1: no match. -->
+                  <li class="comments_subtree">
+                    <input
+                      id="comment_folder_gc1"
+                      class="comment_folder_button"
+                      type="checkbox"
+                    />
+                    <div id="c_gc1" data-shortid="gc1" class="comment">
+                      <div class="voters">
+                        <a class="upvoter" href="/login">2</a>
+                      </div>
+                      <div class="details">
+                        <div class="byline"><a href="/~carol">carol</a></div>
+                        <div class="comment_text">
+                          <p>I disagree — the design here is solid.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- gc2: matches. -->
+                  <li class="comments_subtree">
+                    <input
+                      id="comment_folder_gc2"
+                      class="comment_folder_button"
+                      type="checkbox"
+                    />
+                    <div id="c_gc2" data-shortid="gc2" class="comment">
+                      <div class="voters">
+                        <a class="upvoter" href="/login">1</a>
+                      </div>
+                      <div class="details">
+                        <div class="byline"><a href="/~dave">dave</a></div>
+                        <div class="comment_text">
+                          <p>More vibecoding nonsense, as expected.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+              <!-- ch2: no match; replies are gc3 and gc4. -->
+              <li class="comments_subtree">
+                <input
+                  id="comment_folder_ch2"
+                  class="comment_folder_button"
+                  type="checkbox"
+                />
+                <div id="c_ch2" data-shortid="ch2" class="comment">
+                  <div class="voters">
+                    <a class="upvoter" href="/login">6</a>
+                  </div>
+                  <div class="details">
+                    <div class="byline"><a href="/~erin">erin</a></div>
+                    <div class="comment_text">
+                      <p>Unrelated note about the build system here.</p>
+                    </div>
+                  </div>
+                </div>
+                <ol class="comments">
+                  <!-- gc3: matches. -->
+                  <li class="comments_subtree">
+                    <input
+                      id="comment_folder_gc3"
+                      class="comment_folder_button"
+                      type="checkbox"
+                    />
+                    <div id="c_gc3" data-shortid="gc3" class="comment">
+                      <div class="voters">
+                        <a class="upvoter" href="/login">3</a>
+                      </div>
+                      <div class="details">
+                        <div class="byline"><a href="/~frank">frank</a></div>
+                        <div class="comment_text">
+                          <p>This reply is peak vibecoding to me.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- gc4: no match. -->
+                  <li class="comments_subtree">
+                    <input
+                      id="comment_folder_gc4"
+                      class="comment_folder_button"
+                      type="checkbox"
+                    />
+                    <div id="c_gc4" data-shortid="gc4" class="comment">
+                      <div class="voters">
+                        <a class="upvoter" href="/login">5</a>
+                      </div>
+                      <div class="details">
+                        <div class="byline"><a href="/~grace">grace</a></div>
+                        <div class="comment_text">
+                          <p>Fair enough, thanks for the write-up.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </body>
+</html>
