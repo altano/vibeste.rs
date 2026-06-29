@@ -14,6 +14,7 @@
     "check:types": "pnpm -r run check:types",
     "check:formatting": "prettier --check .",
     "format": "prettier --write .",
+    "test": "pnpm -r run '/^test:.*/'",
     "test:unit": "pnpm -r run test:unit",
     "test:e2e": "pnpm -r run test:e2e",
     "build": "pnpm -r run build",
