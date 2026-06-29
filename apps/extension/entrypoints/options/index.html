@@ -16,9 +16,14 @@
         line-height: 1.5;
       }
       body {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        position: relative;
+        margin: 0 auto;
+        padding: 1rem;
         max-width: 38rem;
-        margin: 2rem auto;
-        padding: 0 1rem;
       }
       h1 {
         font-size: 1.4rem;
@@ -81,7 +86,16 @@
         cursor: pointer;
       }
       #status {
-        color: #2a8;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+
+        background: #2a8;
+        color: white;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        font-size: large;
+
         opacity: 0;
         transition: opacity 0.15s;
       }
@@ -91,58 +105,61 @@
     </style>
   </head>
   <body>
-    <h1>vibeste.rs</h1>
-    <p class="sub">
-      Settings sync across your browsers. Changes apply immediately.
-    </p>
+    <main>
+      <h1>vibeste.rs</h1>
+      <p class="sub">
+        Settings sync across your browsers. Changes apply immediately.
+      </p>
 
-    <form id="settings">
-      <fieldset>
-        <legend>Hidden tags</legend>
-        <label class="field" for="hiddenTags">
-          Tags to hide. Only hides the tags themselves and NOT the stories that
-          are tagged. One tag slug per line. Hidden where they annotate a story;
-          the Filtered Tags page is never touched.
-        </label>
-        <textarea
-          id="hiddenTags"
-          spellcheck="false"
-          autocapitalize="off"
-        ></textarea>
-      </fieldset>
-
-      <fieldset>
-        <legend>Muted words</legend>
-        <label class="field" for="muteWords">
-          One word or phrase per line. A comment containing any of these
-          (whole-word, case-insensitive) is replaced with a "muted" link.
-        </label>
-        <textarea
-          id="muteWords"
-          spellcheck="false"
-          autocapitalize="off"
-        ></textarea>
-      </fieldset>
-
-      <fieldset>
-        <legend>Mute scope</legend>
-        <div class="toggle">
-          <input type="checkbox" id="muteWholeThread" />
-          <label for="muteWholeThread">
-            Mute the whole conversation thread
-            <small
-              >When off, only the matching comment is muted; its replies stay
-              visible.</small
-            >
+      <form id="settings">
+        <fieldset>
+          <legend>Hidden tags</legend>
+          <label class="field" for="hiddenTags">
+            Tags to hide. Only hides the tags themselves and NOT the stories
+            that are tagged. One tag slug per line. Hidden where they annotate a
+            story; the Filtered Tags page is never touched.
           </label>
-        </div>
-      </fieldset>
+          <textarea
+            id="hiddenTags"
+            spellcheck="false"
+            autocapitalize="off"
+          ></textarea>
+        </fieldset>
 
-      <footer>
-        <button type="button" id="reset">Reset to defaults</button>
+        <fieldset>
+          <legend>Muted words</legend>
+          <label class="field" for="muteWords">
+            One word or phrase per line. A comment containing any of these
+            (whole-word, case-insensitive) is replaced with a "muted" link.
+          </label>
+          <textarea
+            id="muteWords"
+            spellcheck="false"
+            autocapitalize="off"
+          ></textarea>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mute scope</legend>
+          <div class="toggle">
+            <input type="checkbox" id="muteWholeThread" />
+            <label for="muteWholeThread">
+              Mute the whole conversation thread
+              <small
+                >When off, only the matching comment is muted; its replies stay
+                visible.</small
+              >
+            </label>
+          </div>
+        </fieldset>
+
+        <div>
+          <button type="button" id="reset">Reset to defaults</button>
+        </div>
+
         <span id="status" role="status">Saved</span>
-      </footer>
-    </form>
+      </form>
+    </main>
 
     <script type="module" src="./main.ts"></script>
   </body>
