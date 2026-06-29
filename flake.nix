@@ -18,7 +18,7 @@
           packages =
             [
               pkgs.nodejs_22
-              pkgs.corepack # provides pnpm pinned by package.json's packageManager field
+              pkgs.pnpm_10 # honors package.json's packageManager pin via pnpm's built-in version management
               pkgs.web-ext # firefox: run / lint the extension
               pkgs.librsvg # rsvg-convert: render icon.svg -> PNG icons (pnpm regen:icons)
             ]
@@ -30,11 +30,7 @@
               pkgs.xvfb-run # virtual display for the headed e2e Chromium (CI)
             ];
 
-          shellHook = ''
-            # Use the pnpm version pinned in package.json (packageManager field).
-            corepack enable pnpm >/dev/null 2>&1 || true
-          ''
-          + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
+          shellHook = pkgs.lib.optionalString pkgs.stdenv.isLinux ''
             export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}
             export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
             export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
