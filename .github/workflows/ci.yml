@@ -36,7 +36,7 @@ jobs:
       - run: pnpm build:safari
 
       # Static validation of the Firefox build (web-ext is provided by the flake).
-      - run: web-ext lint --source-dir apps/extension/.output/firefox-mv2 --no-config-discovery
+      - run: pnpm check:lint
 
       # Distributable zips (Chrome store zip + Firefox zip & sources zip).
       - run: pnpm zip

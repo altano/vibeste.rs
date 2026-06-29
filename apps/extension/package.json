@@ -17,6 +17,7 @@
     "zip:chrome": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "check:types": "wxt prepare && tsc --noEmit",
+    "check:lint": "web-ext lint --source-dir .output/firefox-mv2 --no-config-discovery",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",

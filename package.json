@@ -13,6 +13,7 @@
     "dev:firefox": "pnpm -C apps/extension dev:firefox",
     "check:types": "pnpm -r run check:types",
     "check:formatting": "prettier --check .",
+    "check:lint": "pnpm -r run check:lint",
     "format": "prettier --write .",
     "test": "pnpm -r run '/^test:.*/'",
     "test:unit": "pnpm -r run test:unit",
