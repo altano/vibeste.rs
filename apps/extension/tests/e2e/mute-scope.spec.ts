@@ -49,13 +49,9 @@ const MATCHING = ["root", "ch1", "gc2", "gc3"];
 const NON_MATCHING = ["gc1", "ch2", "gc4"];
 
 const present = (page: Page, ids: string[]) =>
-  Promise.all(
-    ids.map((id) => expect(page.locator(`#c_${id}`)).toHaveCount(1)),
-  );
+  Promise.all(ids.map((id) => expect(page.locator(`#c_${id}`)).toHaveCount(1)));
 const absent = (page: Page, ids: string[]) =>
-  Promise.all(
-    ids.map((id) => expect(page.locator(`#c_${id}`)).toHaveCount(0)),
-  );
+  Promise.all(ids.map((id) => expect(page.locator(`#c_${id}`)).toHaveCount(0)));
 
 test("switching Mute scope re-renders an open thread between whole-thread and comment-only", async ({
   context,

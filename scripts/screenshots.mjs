@@ -110,7 +110,10 @@ const settle = async (page) => {
     await muted.elementHandle()
   ).evaluateHandle((el) => el.closest("li.comments_subtree"));
   await muted.click();
-  await page.waitForFunction((el) => !!el.querySelector("div.comment"), subtree);
+  await page.waitForFunction(
+    (el) => !!el.querySelector("div.comment"),
+    subtree,
+  );
   // Revealed comments pull in avatars etc.; let them load so the box is final.
   await settle(page);
   let sbox = await subtree.asElement().boundingBox();
