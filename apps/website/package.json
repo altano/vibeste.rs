@@ -4,6 +4,7 @@
   "private": true,
   "description": "Public documentation website for vibeste.rs — static, deployed to GitHub Pages.",
   "license": "MIT",
+  "homepage": "https://altano.github.io/vibeste.rs",
   "scripts": {
     "dev": "live-server --port=4321",
     "preview": "live-server --port=4321 --no-browser"

@@ -1,20 +1,18 @@
 # vibeste.rs
 
 A small, open-source browser extension that makes [lobste.rs](https://lobste.rs)
-quieter:
+quieter by hiding the `vibecoding` tag and muting comment threads that mention it.
 
-- **Hides the `vibecoding` tag** where it annotates a story — but leaves it alone
-  in your Filtered Tags settings at `/filters`, and on the tag's own page at
-  `/t/vibecoding` (where you've explicitly asked to see it).
-- **Mutes comment threads** that mention `vibecoding`, collapsing them into a
-  _"muted conversation thread"_ link you can click to expand.
-
-Everything is configurable, it runs only on `lobste.rs` / `lobsters.dev`, and it
-requests a single permission (`storage`) with no telemetry of any kind.
+For the user-facing overview, screenshots, settings, and privacy details, see
+**[the website](https://altano.github.io/vibeste.rs/)**.
 
 Cross-browser (Chrome, Firefox, Safari, Edge) from one code base via
-[WXT](https://wxt.dev). See the [website](apps/website/index.html) for the
-user-facing overview and [`docs/`](docs/) for design notes.
+[WXT](https://wxt.dev). The rest of this README covers local development; see
+[`docs/`](docs/) for design notes.
+
+## 🤖 AI Notice
+
+The code in this repository is vibecoded and mostly human-reviewed.
 
 ## Repo layout
 
@@ -73,16 +71,6 @@ Then open and run the generated Xcode project. Distribution needs an Apple
 Developer account for signing/notarization. Safari is build-supported but not
 exercised in CI (headless Safari extension automation isn't possible).
 
-## Settings
-
-Open the extension's options page to configure:
-
-- **Hidden tags** — tag slugs to hide (one per line; default `vibecoding`).
-- **Muted words** — words/phrases that mute a comment (whole-word, case-insensitive).
-- **Mute scope** — the whole reply thread (default) or only the matching comment.
-
-Settings use `storage.sync`, so they follow you across browsers and apply live.
-
 ## Tests
 
 - **Unit** (`pnpm test:unit`) — pure logic and DOM transforms run against real
@@ -90,12 +78,6 @@ Settings use `storage.sync`, so they follow you across browsers and apply live.
 - **E2E** (`pnpm test:e2e`) — loads the built Chromium extension and drives it against
   those fixtures served as `lobste.rs`, offline and deterministically.
 - **Firefox** is validated in CI with `web-ext lint`.
-
-## Privacy
-
-The only permission is `storage` (for your settings). The code runs solely on
-`lobste.rs` and `lobsters.dev`. No host permissions, no network requests, no
-analytics — nothing leaves your browser.
 
 ## License
 
