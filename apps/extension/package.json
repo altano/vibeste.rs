@@ -16,6 +16,7 @@
     "zip": "pnpm run zip:chrome && pnpm run zip:firefox",
     "zip:chrome": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
+    "zip:safari": "wxt zip -b safari",
     "check:types": "wxt prepare && tsc --noEmit",
     "check:lint": "web-ext lint --source-dir .output/firefox-mv2 --no-config-discovery",
     "test:unit": "vitest run",
