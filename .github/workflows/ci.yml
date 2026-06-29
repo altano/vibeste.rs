@@ -18,7 +18,7 @@ jobs:
         # — no `pnpm dlx` or ad-hoc tool fetches in CI.
         shell: nix develop --command bash -eo pipefail {0}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: DeterminateSystems/nix-installer-action@main
 
       # Runs `wxt prepare` via the postinstall hook.
@@ -46,11 +46,14 @@ jobs:
       # headed under xvfb so the extension actually loads.
       - run: xvfb-run -a pnpm test:e2e
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: extension-builds
           path: apps/extension/.output/*.zip
+          # .output is a dotted dir; without this, upload-artifact's default
+          # hidden-file exclusion silently drops the zips.
+          include-hidden-files: true
           if-no-files-found: warn
 
   deploy-website:
@@ -66,10 +69,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v5
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: apps/website
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
