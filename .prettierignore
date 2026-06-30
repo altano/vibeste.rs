@@ -8,7 +8,6 @@ pnpm-lock.yaml
 # Captured real-world lobste.rs HTML, kept byte-faithful so the unit/e2e tests
 # exercise the exact markup the extension sees in the wild. Reformatting these
 # would alter whitespace-sensitive text nodes the DOM transforms rely on.
-apps/extension/tests/fixtures/html/
+apps/extension/.output/
+apps/extension/.wxt/
 
-# google site verification
-apps/website/google3dbdbcfc19857c18.html

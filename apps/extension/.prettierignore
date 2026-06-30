@@ -1,0 +1,6 @@
+# Captured real-world lobste.rs HTML, kept byte-faithful so the unit/e2e tests
+# exercise the exact markup the extension sees in the wild. Reformatting these
+# would alter whitespace-sensitive text nodes the DOM transforms rely on.
+.output/
+.wxt/
+tests/fixtures/html/
