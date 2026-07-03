@@ -33,3 +33,12 @@ Invariants to preserve when editing:
 - **Firefox needs the explicit gecko id** in `wxt.config.ts` — it's functional (required for `storage.sync` to persist), not just a signing detail.
 
 When changing `lib/` logic, prefer adding a fixture-backed unit test; reserve e2e (built Chromium extension, fixtures served offline as `lobste.rs`) for content-script/options wiring. Safari is build-only — not exercised in CI.
+
+## Editing
+
+- Before making a series of edits, run `jj new --after @ --message "MESSAGE"`.
+  - If the current commit (`@`) is empty, rename it with `jj describe -m` instead of creating a new one on top.
+  - Try to keep the message under 30 characters.
+  - Don't run this too many times in rapid succession.
+  - Run it once after getting a new prompt from the user and before editing files in the repository.
+- After editing a file, try to format it using Prettier, nixfmt, or the appropriate code formatter. If not on the path, figure out how to get it there (usually via flake or npm package).
