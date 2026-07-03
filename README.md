@@ -42,9 +42,9 @@ pnpm dev:firefox     # Firefox, with hot reload
 pnpm check:types     # typecheck (wxt prepare && tsc --noEmit)
 pnpm test:unit       # unit tests (Vitest)
 pnpm test:e2e        # Playwright e2e (build first)
-pnpm build           # build Chrome + Firefox
-pnpm build:safari    # build the Safari payload
-pnpm zip             # package store-ready zips
+pnpm build           # build Chrome + Firefox + Safari
+pnpm build:safari    # build only the Safari payload
+pnpm zip             # package store-ready zips (all targets)
 ```
 
 Builds land in `apps/extension/.output/<target>/`.

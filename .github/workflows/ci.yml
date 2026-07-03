@@ -29,16 +29,15 @@ jobs:
       - run: pnpm check:formatting
       - run: pnpm test:unit
 
-      # Build all targets. `pnpm build` produces chrome + firefox; Safari builds
-      # the payload here as a compile smoke check (Xcode conversion/signing is a
-      # documented manual step on macOS).
+      # Build all targets. `pnpm build` covers chrome + firefox + safari; the
+      # Safari step emits only the unsigned MV2 payload (Xcode conversion/signing
+      # is a documented manual step on macOS, not run here).
       - run: pnpm build
-      - run: pnpm build:safari
 
       # Static validation of the Firefox build (web-ext is provided by the flake).
       - run: pnpm check:lint
 
-      # Distributable zips (Chrome store zip + Firefox zip & sources zip).
+      # Distributable zips (chrome + firefox + safari zips, plus firefox sources zip).
       - run: pnpm zip
 
       # E2E: load the built Chromium extension and drive it against the captured
