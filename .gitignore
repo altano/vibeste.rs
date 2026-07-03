@@ -24,3 +24,7 @@ result-*
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# wxt submit (incl. backup files)
+.env.submit
+.env.submit*

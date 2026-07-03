@@ -17,6 +17,8 @@
     "zip:chrome": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "zip:safari": "wxt zip -b safari",
+    "submit": "wxt submit --chrome-zip .output/*-chrome.zip --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip",
+    "submit:dry": "pnpm run submit --dry-run",
     "check:formatting": "prettier --check .",
     "check:types": "wxt prepare && tsc --noEmit",
     "check:lint": "web-ext lint --source-dir .output/firefox-mv2 --no-config-discovery",
