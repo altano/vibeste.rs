@@ -60,9 +60,15 @@ jobs:
       - run: xvfb-run -a pnpm test
       - run: pnpm zip
 
-      # Attach the built zips to the Release release-please just created.
-      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
-        with:
-          tag_name: ${{ needs.release-please.outputs.tag_name }}
-          files: apps/extension/.output/*.zip
-          fail_on_unmatched_files: true
+      # release-please created the GitHub Release as a *draft* (draft: true in
+      # release-please-config.json). Immutable releases only accept assets before
+      # publish, so attach the zips to the draft, then publish it. Runs with the
+      # runner's gh (shell: bash) since the flake dev shell doesn't bundle gh.
+      - name: Attach zips to the draft release, then publish
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.release-please.outputs.tag_name }}
+        run: |
+          gh release upload "$TAG" apps/extension/.output/*.zip --clobber
+          gh release edit "$TAG" --draft=false
