@@ -10,4 +10,3 @@ pnpm-lock.yaml
 # would alter whitespace-sensitive text nodes the DOM transforms rely on.
 apps/extension/.output/
 apps/extension/.wxt/
-

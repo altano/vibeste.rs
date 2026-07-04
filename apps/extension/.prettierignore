@@ -4,3 +4,7 @@
 .output/
 .wxt/
 tests/fixtures/html/
+
+# release-please managed changelog
+CHANGELOG
+CHANGELOG.md
