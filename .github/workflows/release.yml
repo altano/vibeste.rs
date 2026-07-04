@@ -22,8 +22,10 @@ jobs:
       contents: write
       pull-requests: write
     outputs:
-      release_created: ${{ steps.rp.outputs.release_created }}
-      tag_name: ${{ steps.rp.outputs.tag_name }}
+      # Manifest mode emits path-prefixed outputs, not the simple-mode
+      # `release_created`/`tag_name` — access them with bracket notation.
+      release_created: ${{ steps.rp.outputs['apps/extension--release_created'] }}
+      tag_name: ${{ steps.rp.outputs['apps/extension--tag_name'] }}
     steps:
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4
         id: rp
