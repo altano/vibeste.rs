@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/altano/vibeste.rs/compare/v0.1.3...v0.1.4) (2026-07-04)
+
+
+### Bug Fixes
+
+* test release automation ([f7cdcd8](https://github.com/altano/vibeste.rs/commit/f7cdcd89dae9492cb363cd6ecac7266d7737c877))
+
 ## [0.1.3](https://github.com/altano/vibeste.rs/compare/v0.1.2...v0.1.3) (2026-07-04)
 
 
