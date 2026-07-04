@@ -6,6 +6,7 @@
     "apps/extension": {
       "release-type": "node",
       "package-name": "vibesters-extension",
+      "component": "vibesters-extension",
       "changelog-path": "CHANGELOG.md"
     }
   }
